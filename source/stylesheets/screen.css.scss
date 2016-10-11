@@ -59,8 +59,12 @@ html, body {
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
-  font-size: 13px;
-  font-weight: bold;
+  background-image: linear-gradient(180deg,#4f5e68 0%,#39444b 100%);
+  font-size: 12px;
+
+  .tocify {
+      margin-bottom: 40px;
+  }
 
   // language selector for mobile devices
   .lang-selector {
@@ -82,21 +86,26 @@ html, body {
     position: relative;
 
     input {
-      background: $nav-bg;
-      border-width: 0 0 1px 0;
-      border-color: $search-box-border-color;
-      padding: 6px 0 6px 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid $search-box-border-color;
+      padding: 10px 0 10px 20px;
       box-sizing: border-box;
       margin: $nav-v-padding $nav-padding;
       width: $nav-width - ($nav-padding*2);
       outline: none;
       color: $nav-text;
       border-radius: 0; /* ios has a default border radius */
+
+      &:focus {
+          border-bottom: 2px solid $color-blue;
+          color: $color-white;
+      }
     }
 
     &:before {
       position: absolute;
-      top: 17px;
+      top: 20px;
       left: $nav-padding;
       color: $nav-text;
       @extend %icon-search;
@@ -120,7 +129,7 @@ html, body {
 
     li {
       margin: 1em $nav-padding;
-      line-height: 1;
+      line-height: 1.333;
     }
 
     a {
@@ -128,11 +137,24 @@ html, body {
       text-decoration: none;
 
       &:hover {
-        text-decoration: underline;
+        color: $color-blue;
       }
     }
   }
 
+  .tocify-item>a, .toc-footer li {
+    padding: 0 $nav-padding 0 $nav-padding;
+    display: block;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .tocify-item>a {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
 
   // The Table of Contents is composed of multiple nested
   // unordered lists.  These styles remove the default
@@ -141,7 +163,7 @@ html, body {
     list-style: none;
     margin: 0;
     padding: 0;
-    line-height: 28px;
+    line-height: 38px;
   }
 
   li {
@@ -152,7 +174,7 @@ html, body {
   }
 
   // This is the currently selected ToC entry
-  .toc-link.active {
+  .tocify-focus {
     background-color: $nav-active-bg;
     color: $nav-active-text;
   }
@@ -166,21 +188,26 @@ html, body {
   .toc-list-h2 {
     display: none;
     background-color: $nav-subitem-bg;
-    font-weight: 500;
-  }
+    font-weight: 400;
 
-  .toc-h2 {
-    padding-left: $nav-padding + $nav-indent;
-    font-size: 12px;
+    .tocify-item>a {
+      padding-left: $nav-padding + $nav-indent;
+      font-size: 12px;
+      text-transform: capitalize;
+    }
+
+    &>li:last-child {
+      box-shadow: none; // otherwise it'll overflow out of the subheader
+    }
   }
 
   .toc-footer {
+    font-weight: 400;
     padding: 1em 0;
     margin-top: 1em;
-    border-top: 1px dashed $nav-footer-border-color;
 
     li,a {
-      color: $nav-text;
+      color: transparentize($color-white, .5);
       text-decoration: none;
     }
 
@@ -280,14 +307,13 @@ html, body {
 .lang-selector {
   background-color: $lang-select-bg;
   width: 100%;
-  font-weight: bold;
   a {
     display: block;
     float:left;
     color: $lang-select-text;
     text-decoration: none;
-    padding: 0 10px;
-    line-height: 30px;
+    padding: 0 20px;
+    line-height: 40px;
     outline: 0;
 
     &:active, &:focus {
@@ -298,6 +324,7 @@ html, body {
     &.active {
       background-color: $lang-select-active-bg;
       color: $lang-select-active-text;
+      font-weight: 500;
     }
   }
 
@@ -319,6 +346,15 @@ html, body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
+
+  a {
+      color: $color-blue;
+      text-decoration: none;
+
+      &:hover {
+          color: darken($color-blue, 5%);
+      }
+  }
 
   &:after {
     content: '';
@@ -344,16 +380,28 @@ html, body {
     clear:both;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+      color: $color-lightSmoke;
+  }
+
+  h1, h2 {
+      font-weight: 300;
+  }
+
+  h3, h4 {
+      font-weight: 400;
+  }
+
   h1 {
     @extend %header-font;
     font-size: 25px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+    border-bottom: 1px solid $color-border;
     margin-bottom: $h1-margin-bottom;
     margin-top: 2em;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    background-color: #fdfdfd;
+    border-top: 1px solid $color-border;
+    background: $color-warm;
   }
 
   h1:first-child, div:first-child + h1 {
@@ -366,10 +414,9 @@ html, body {
     font-size: 19px;
     margin-top: 4em;
     margin-bottom: 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid $color-border;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
-    background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
   }
 
   // h2s right after h1s should bump right up
@@ -410,7 +457,7 @@ html, body {
 
     th {
       padding: 5px 10px;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $color-border;
       vertical-align: bottom;
     }
 
@@ -419,7 +466,7 @@ html, body {
     }
 
     tr:last-child {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $color-border;
     }
 
     tr:nth-child(odd)>td {
@@ -449,8 +496,8 @@ html, body {
   }
 
   code {
-    background-color: rgba(0,0,0,0.05);
-    padding: 3px;
+    background-color: transparentize(#2b2725, .925);
+    padding: 3px 5px;
     border-radius: 3px;
     @extend %break-words;
     @extend %code-font;
@@ -462,6 +509,7 @@ html, body {
   }
 
   aside {
+    color: $color-message-text;
     padding-top: 1em;
     padding-bottom: 1em;
     margin-top: 1.5em;
@@ -486,14 +534,17 @@ html, body {
 
   aside.notice:before {
     @extend %icon-info-sign;
+    color: $color-blue;
   }
 
   aside.warning:before {
     @extend %icon-exclamation-sign;
+    color: $color-danger;
   }
 
   aside.success:before {
     @extend %icon-ok-sign;
+    color: $color-success;
   }
 
   .search-highlight {
@@ -534,7 +585,7 @@ html, body {
     a {
       color: #fff;
       text-decoration: none;
-      border-bottom: dashed 1px #ccc;
+      border-bottom: dashed 1px $color-border;
     }
   }
 
@@ -548,8 +599,9 @@ html, body {
   blockquote {
     &>p {
       background-color: $code-annotation-bg;
-      padding: $code-annotation-padding 2em;
-      color: #eee;
+      border-radius: 6px;
+      padding: $code-annotation-padding;
+      color: transparentize($color-white, .5);
     }
   }
 }
