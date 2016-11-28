@@ -1053,7 +1053,8 @@ fileType | String | "cvs" or "tsv" | Format of the tag data.
 
 ```shell
 curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
-    -d 'requestJobDescription={
+    -H 'Expect:' \
+    -F 'requestJobDescription={
         "type": "update",
         "credentials": {
             "partnerUserID": "_REPLACE_",
@@ -1064,8 +1065,8 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
             "policyID":"0123456789ABCDEF",
             "fileType": "csv"
         }
-    }'
-    --data-urlencode 'data@employeeData.csv'
+    }' \
+    -F 'data=@employeeData.csv'
 ```
 
 > Employee data samples - employeeData.csv
@@ -1123,6 +1124,10 @@ policyID | String | Any valid Expensify policy ID, owned or shared with the user
 - `data` request argument
 
 CSV file containing the employee data to update. The first line of the file lists the columns that will exist. The order of the columns does not matter.
+
+<aside class="notice">
+The <code>data</code> parameter has to use the <code>multipart/form-data</code> content-type. With curl, use the <code>-F</code> option to pass it.
+</aside>
 
 Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
