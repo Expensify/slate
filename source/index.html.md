@@ -242,8 +242,8 @@ We recommend storing your template in separate files, which can be passed to the
 {
     "type":"reconciliation",
     "credentials":{
-        "partnerUserID":"...",
-        "partnerUserSecret":"..."
+        "partnerUserID":"_REPLACE_",
+        "partnerUserSecret":"_REPLACE_"
     },
     "inputSettings":{
         "startDate":"2016-01-01",
@@ -261,7 +261,7 @@ We recommend storing your template in separate files, which can be passed to the
 
 > Response
 
-> -  A success response message is comprised of a `responseCode` `200`, and the filename of the report that got created. You can use the Downloader job to download the report.
+> -  A success response message is comprised of a `"responseCode":200`, and the filename of the report that got created. You can use the Downloader job to download the report.
 
 ```
 {
@@ -286,30 +286,30 @@ Export card transaction data in a configurable format for a given feed in a spec
 
 Name | Format | Valid values | Description
 --------- | --------- | --------- | ---------
-| type | String | "reconciliation" | |
-| inputSettings | JSON object | See inputSettings | Settings used to filter the reports that are exported. |
+type | String | "reconciliation" | |
+inputSettings | JSON object | See inputSettings | Settings used to filter the reports that are exported. |
 **Optional elements** |
-| outputSettings | JSON object | See outputSettings | Settings for the generated file.
+outputSettings | JSON object | See outputSettings | Settings for the generated file.
 
 
 - `inputSettings`
 
 Name | Format | Valid values | Description
 --------- | --------- | --------- | ---------
-| startDate | String | yyyy-mm-dd formatted date | The beginning date for which we will include expenses in the generated report.
-| endDate | String | yyyy-mm-dd formatted date | The end date for which we will include expenses in the generated report.
-| domain | String | A valid domain, e.g.  "example.com"| Specifies the domain for which the reconciliation report will be run. **Note:** Only credentials generated for accounts that are domain admins on the provided domain will work. 
-| type | String |  "Unreported","All" | Specifies whether to run the report for only unreported card expenses, or for all card expenses.
-| async | Boolean | `true`, `false` | Specifies whether or not to run this command synchronously or asynchronously. **Note:** For the moment, only synchronous commands (`false`) are supported.
+startDate | String | yyyy-mm-dd formatted date | The beginning date for which we will include expenses in the generated report.
+endDate | String | yyyy-mm-dd formatted date | The end date for which we will include expenses in the generated report.
+domain | String | A valid domain, e.g.  "example.com"| Specifies the domain for which the reconciliation report will be run. **Note:** Only credentials generated for accounts that are domain admins on the provided domain will work.
+type | String |  "Unreported","All" | Specifies whether to run the report for only unreported card expenses, or for all card expenses.
+async | Boolean | `true`, `false` | Specifies whether or not to run this command synchronously or asynchronously. **Note:** For the moment, only synchronous commands (`false`) are supported.
 **Optional elements** |
-| feed | String | Any name for a card feed, or `export_all_feeds` | Only the cards matching the specified feed will be exported.
+feed | String | Any name for a card feed, or `export_all_feeds` | Only the cards matching the specified feed will be exported.
 
 
 - `outputSettings` (Optional)
 
 Name | Format | Valid values | Description
 --------- | --------- | --------- | ---------
-| fileExtension | String | One of "csv", "txt", "json", "xml" | Specifies the format of the generated report. "csv" is the default.
+fileExtension | String | One of "csv", "txt", "json", "xml" | Specifies the format of the generated report. "csv" is the default.
 
 
 - `onFinish` (Optional)
@@ -338,13 +338,13 @@ Original Amount,<#t>
 Modified Amount,<#t>
 <#list cards as card, reports>
   <#list reports as report>
-      <#list report.transactionList as transaction>
-            ${transaction.originalMerchant},<#t>
-            ${transaction.posted},<#t>
-            ${transaction.originalCreated},<#t>
-            ${transaction.modifiedCreated},<#t>
-            ${(-transaction.originalAmount/100)?string("0.00")},<#t>
-            ${transaction.amountModified?then((-transaction.originalAmount/100)?string("0.00"), "")},<#t>
+      <#list report.transactionList as expense>
+            ${expense.originalMerchant},<#t>
+            ${expense.posted},<#t>
+            ${expense.originalCreated},<#t>
+            ${expense.modifiedCreated},<#t>
+            ${(-expense.originalAmount/100)?string("0.00")},<#t>
+            ${expense.amountModified?then((-expense.originalAmount/100)?string("0.00"), "")},<#t>
         </#list>
     </#list>
 </#list>
@@ -356,8 +356,8 @@ Modified Amount,<#t>
     <#-- Properties to print per card -->
     <#list reports as report>
         <#-- Properties to print per report -->
-        <#list report.transactionList as transaction>
-            <#-- Properties to print per transaction -->
+        <#list report.transactionList as expense>
+            <#-- Properties to print per expense -->
         </#list>
      </#list>
 </#list>
@@ -393,7 +393,7 @@ Name | Format | Description
 -------- | ---------- | ---------
 fileName | String | The name of a file generated from the exporter job.
 **Optional elements** |
-| fileSystem | String | Either `reconciliation` or `integrationServer`. Use `reconciliation` to download reports generated from the Reconciliation job, and use `integrationServer` to download reports generated by the Report Exporter job. `integrationServer` is the default.
+fileSystem | String | Either `reconciliation` or `integrationServer`. Use `reconciliation` to download reports generated from the Reconciliation job, and use `integrationServer` to download reports generated by the Report Exporter job. `integrationServer` is the default.
 
 # Create
 
