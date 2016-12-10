@@ -239,24 +239,26 @@ We recommend storing your template in separate files, which can be passed to the
 > - Export unreported transactions on all feeds between 1/1/2016 and 10/10/2016 to a CSV file.
 
 ```shell
-{
-    "type":"reconciliation",
-    "credentials":{
-        "partnerUserID":"_REPLACE_",
-        "partnerUserSecret":"_REPLACE_"
-    },
-    "inputSettings":{
-        "startDate":"2016-01-01",
-        "endDate":"2016-10-10",
-        "domain":"example.com",
-        "feed":"export_all_feeds",
-        "type":"Unreported",
-        "async": false
-    },
-    "outputSettings":{
-        "fileExtension":"csv"
-    }
-}
+curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
+    -d 'requestJobDescription={
+        "type":"reconciliation",
+        "credentials":{
+            "partnerUserID":"_REPLACE_",
+            "partnerUserSecret":"_REPLACE_"
+        },
+        "inputSettings":{
+            "startDate":"2016-01-01",
+            "endDate":"2016-10-10",
+            "domain":"example.com",
+            "feed":"export_all_feeds",
+            "type":"Unreported",
+            "async": false
+        },
+        "outputSettings":{
+            "fileExtension":"csv"
+        }
+    }'
+    --data-urlencode 'template@expensify_template.ftl'
 ```
 
 > Response
@@ -330,12 +332,14 @@ Name | Format | Valid values | Description
 
 ```
 <#-- Header Line -->
-Original Merchant,<#t>
-Posted date,<#t>
-Sales date,<#t>
-Modified Sales date,<#t>
-Original Amount,<#t>
-Modified Amount,<#t>
+<#if addHeader>
+  Original Merchant,<#t>
+  Posted date,<#t>
+  Sales date,<#t>
+  Modified Sales date,<#t>
+  Original Amount,<#t>
+  Modified Amount,<#lt>
+</#if>
 <#list cards as card, reports>
   <#list reports as report>
       <#list report.transactionList as expense>
@@ -344,7 +348,7 @@ Modified Amount,<#t>
             ${expense.originalCreated},<#t>
             ${expense.modifiedCreated},<#t>
             ${(-expense.originalAmount/100)?string("0.00")},<#t>
-            ${expense.amountModified?then((-expense.originalAmount/100)?string("0.00"), "")},<#t>
+            ${expense.amountModified?then((-expense.originalAmount/100)?string("0.00"), "")},<#lt>
         </#list>
     </#list>
 </#list>
