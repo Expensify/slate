@@ -4,6 +4,9 @@ title: Expensify API Reference
 language_tabs:
   - shell
 
+includes:
+  - reconciliationTemplates
+
 search: true
 ---
 
