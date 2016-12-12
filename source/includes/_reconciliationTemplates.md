@@ -229,3 +229,70 @@ Accessible data packages are:
 - `reportPolicyData`: Policy data for all the reports in the reconciliation report.
 - `categoryGLCodeMap`: Map of category names to their GL codes.
 - `reportFieldsMap`: Map of reportIDs to their report fields under a given report field name.
+
+### Card Owner Data
+
+> You can access your Employee Data under the `cardOwnerData` object:
+
+```
+<!-- use cardOwnerData -->
+...
+<#assign individualEmployeeData = (cardOwnerData[report.submitterEmail]?eval)!{}>
+${individualEmployeeData["customFieldName1"]}
+```
+
+This is for companies that have enterprise employee import set up. With this enabled you can bring in your custom employee information to be used in your reconciliation report.
+
+All custom employee information is stored in a map: `cardOwnerData`. The key-value pairs in the map are the custom field names mapped to their values.
+
+### Report Policy Data
+
+> You can access your relevant Policy Data under the `reportPolicyData` object:
+
+```
+<!-- use reportPolicyData -->
+...
+<#assign policy = reportPolicyData[report.policyID]!{}>
+${policy.name!""}
+${policy.approver!""}
+```
+
+You can load information about the relevant policies of reports included in your reconciliation report. The policy information will be stored in a map: `reportPolicyData`. The map will be keyed by the policyID - which can be accessed by referencing `report.policyID`. The value will contain an object with relevant policy information:
+
+Name  | Description
+-------- | ---------
+approver | The final approver of the policy, if set.
+name | The name of the policy.
+owner | The owner of the policy.
+outputCurrency | The default currency of the policy.
+technicalContact | The technical contact of the policy.
+
+### Category GL Codes
+
+> You can access GL Codes for Categories under the `categoryGLCodeMap` object:
+
+```
+<!-- use categoryGLCodeMap -->
+...
+<#assign categoryGlCode = categoryGLCodeMap[expense.category]!"">
+${expense.category} : ${categoryGlCode}
+```
+
+You can access the GL codes of expense categories. They will be stored in a map: `categoryGLCodeMap`.  The map will be keyed by the category name, which is accessed normally through `expense.category`. The value will be the GL code for that category name.
+
+### Report Field Data
+
+> You need to include the name of each Report Field you want to bring in via the import like so:
+
+```
+<!-- use repordFieldData[reportFieldName1, reportFieldName2] -->
+```
+
+> Then, you can access the report field per report via:
+
+```
+<#assign reportID = report.ID?c>
+reportFieldData.reportFieldName1[reportID]
+```
+
+You can access the report fields for reports. The import statement works a bit differently from the regular report information. You need to specify each report field that you want to bring in directly in the import. The `repordFieldData` will contain a map, with each report field name as a key pointing to a map of reportIDs to report field values on those reports.
