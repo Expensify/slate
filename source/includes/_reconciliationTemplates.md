@@ -237,8 +237,10 @@ Accessible data packages are:
 ```
 <!-- use cardOwnerData -->
 ...
-<#assign individualEmployeeData = (cardOwnerData[report.submitterEmail]?eval)!{}>
-${individualEmployeeData["customFieldName1"]}
+<#assign individualEmployeeWorkdayObject = cardOwnerData[report.submitterEmail]!{}>
+<#assign individualEmployeeData = individualEmployeeWorkdayObject.data!{}>
+EmployeeID: ${individualEmployeeWorkdayObject.employeeID}
+Some Custom Field: ${individualEmployeeData["customFieldName1"]}
 ```
 
 This is for companies that have enterprise employee import set up. With this enabled you can bring in your custom employee information to be used in your reconciliation report.
@@ -295,4 +297,4 @@ You can access the GL codes of expense categories. They will be stored in a map:
 reportFieldData.reportFieldName1[reportID]
 ```
 
-You can access the report fields for reports. The import statement works a bit differently from the regular report information. You need to specify each report field that you want to bring in directly in the import. The `repordFieldData` will contain a map, with each report field name as a key pointing to a map of reportIDs to report field values on those reports.
+You can access the report fields for reports. The import statement works a bit differently from the regular report information. You need to specify each report field that you want to bring in directly in the import. The `reportFieldData` will contain a map, with each report field name as a key pointing to a map of reportIDs to report field values on those reports.
