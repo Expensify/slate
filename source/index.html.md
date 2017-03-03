@@ -980,6 +980,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
             "data": [
                 {
                     "name": "Tag Level 1",
+                    "setRequired": true,
                     "tags": [
                         {
                             "name": "Tag 1",
@@ -993,6 +994,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
                 },
                 {
                     "name": "Tag Level 2",
+                    "setRequired": false,
                     "tags": [
                         {
                             "name": "Tag 3",
@@ -1161,6 +1163,7 @@ Multiple objects can be specified. Each one corresponds to a level in multi-leve
 Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 name | String | | The name of the tag level. Only use with multi-level tagging.
+setRequired | Boolean | `true`, `false` | Whether users must specify a tag for that level, when coding expenses.
 tags | JSON array | See below | The tags for that level.
 
 - `tags.data.tags` objects
@@ -1190,6 +1193,7 @@ config | JSON Object | See below |
 Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 dependency | Boolean | true, false | Whether the tag levels are dependent. |
+setRequired | Boolean or JSON Array | _e.g._ `true` or `[true, false]` | If `dependency` is `true`, then a single boolean is expected, as dependent tag lists cannot be marked as required individually. If `dependency` is `false`, an array of booleans should be used.
 glCodes | Boolean | true, false | Whether adjacent columns in the tag file(s) contain GL Codes.
 header | Boolean | true, false | Whether the first line of the file contains the names of the tag levels.
 setRequired | Boolean | true, false | If set to `true`, users will be required to tag each expense under that category.
@@ -1360,7 +1364,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
         1234569
     ]
 }
-````
+```
 
 > - Partial success
 > - `skippedReports` corresponds to a list of reports that could not be updated because they are in an invalid status.
