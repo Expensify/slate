@@ -1142,7 +1142,7 @@ Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 value | String | | The name of the report field value. |
 **Optional elements**  |
-enabled | String | `true`, `false` |Whether the report field value is enabled or not. Default value is `true`. |
+enabled | Boolean | `true`, `false` | Whether the report field value is enabled or not. Default value is `true`. |
 externalID | String | |The externalID associated with the report field value. |
 
 ### Update tags<a name="update-tags">&nbsp;</a>
