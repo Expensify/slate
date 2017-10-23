@@ -1132,9 +1132,18 @@ Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 name | String | | The name of the report field. |
 type | String | "text", "dropdown", "date" | The type of the report field. |
-values | JSON array | Strings | *Only if type is "dropdown"*<br/>The values of the dropdown. |
+values | JSON array | Strings, JSONObjects - See below | *Only if type is "dropdown"*<br/>The values of the dropdown. Type must be uniform across the entire array. For more information on supplying JSONObjects see `reportFields.data.values` objects section below. |
 **Optional elements**  |
 defaultValue | String | | The default value of the report field.<br/>*Only used for types "text" and "dropdown"* |
+
+- `reportFields.data.values` objects
+
+Name | Format | Valid values | Description
+-------- | --------- | ---------------- | ---------
+value | String | | The name of the report field value. |
+**Optional elements**  |
+enabled | Boolean | `true`, `false` | Whether the report field value is enabled or not. Default value is `true`. |
+externalID | String | |The externalID associated with the report field value. |
 
 ### Update tags<a name="update-tags">&nbsp;</a>
 
@@ -1172,7 +1181,7 @@ Name | Format | Description
 -------- | --------- | ---------
 name | String | The name of the tag.
 **Optional elements** |
-enabled | Boolean | Whether the tag is enabled or not. Default value is `true`.<br/>*Note:* When multi-level tagging is used, this value is ignored and is considered `true`.
+enabled | Boolean | Whether the tag is enabled or not. Default value is `true`.
 glCode | String | The GL Code associated to the tag.
 
 
