@@ -1011,6 +1011,46 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
     }'
 ```
 
+> - Report Fields with the values as objects rather than strings:
+
+```shell
+curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
+    -d 'requestJobDescription={
+        "type": "update",
+        "credentials": {
+            "partnerUserID": "_REPLACE_",
+            "partnerUserSecret": "_REPLACE_"
+        },
+        "inputSettings": {
+            "type": "policy",
+            "policyID": "F07C5A1A53D4198B"
+         },
+        "reportFields": {
+            "action": "merge",
+            "data": [
+                {
+                    "name": "Report field 1",
+                    "type": "dropdown",
+                    "values": [
+                    {
+                        "value": "value 1",
+                        "externalID": "1"
+                    },
+                    {
+                        "value": "value 2",
+                        "enabled": false
+                    },
+                    {
+                        "value": "value 3",
+                        "externalID": "3",
+                        enabled: true
+                    }
+                ]
+            }
+        ]
+    }'
+```
+
 > - Dependent multi-level tags, with GL Codes and tag level names. These must be passed via CSV.
 
 > Tag file - In this example, we have the following data in a file called `tags.csv`.
