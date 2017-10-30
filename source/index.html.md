@@ -1023,7 +1023,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
         },
         "inputSettings": {
             "type": "policy",
-            "policyID": "F07C5A1A53D4198B"
+            "policyIDList": ["F07C5A1A53D4198B", "81A4013E273DF7A1"]
          },
         "reportFields": {
             "action": "merge",
@@ -1138,6 +1138,8 @@ Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 type | String | "policy" | Specifies to the job that it has to update a policy.
 policyID | String | Any valid Expensify policy ID, owned or shared with the user with admin permissions. | The ID of the policy to update. |
+**Optional elements** |
+policyIDList | JSON Array | Instead of providing a `policyID`, you can provide an array of policyIDs to update all polices at once with the same information. |
 
 - `categories`
 
