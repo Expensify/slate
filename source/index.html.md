@@ -331,7 +331,7 @@ Name | Format | Valid values | Description
 
 ### Template parameter
 
-> - Template sample. See the [export template format reference](./export_report_template.html) for more information about how to write export templates.
+> - Template sample. See the [reconciliation template reference](#templates-for-reconciliation) for more information about how to write export templates.
 
 ```
 <#-- Header Line -->
@@ -372,7 +372,7 @@ Name | Format | Valid values | Description
 
 The `template` parameter is used to format the Expensify data as you wish. It is based on the Freemarker language's syntax.
 
-See the [export template format reference](./export_report_template.html) for more information about how to write export templates.
+See the [reconciliation template reference](#templates-for-reconciliation) for more information about how to write export templates.
 
 <aside class="notice">
 We recommend storing your template in separate files, which can be passed to the request more easily with cURL's `@` operator.
