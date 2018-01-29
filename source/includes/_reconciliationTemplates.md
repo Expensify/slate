@@ -149,6 +149,7 @@ getSubmitted() | The submitted date of the report, as a string (format `yyyy-MM-
 hasAttachment() | Whether the report contains any attachment.
 hasBeenApproved() | Whether or not the report has been approved. 
 ID | The ID of the report
+hasEverBeenExportedTo(template_name) | Whether or not the report has been exported to the template or integration name provided.
 isACHReimbursed() | Whether the report has been reimbursed via ACH
 isClosed() | Whether or not the report is approved.
 isOpen() | Whether or not the report is in the `OPEN` state
@@ -186,6 +187,7 @@ isAmountModified() | Whether or not the expense has a numerical modified amount 
 isTagged() | Whether or not the expense has a tag
 originalAmount | The original (non-modified) amount of the expense, in its original currency.
 originalCreated | The expense's original created date, in format `yyyy-MM-dd`
+originalCurrency | The expense's original currency
 originalCurrencyAmount | The amount of the expense, in cents, in its original currency
 originalMerchant | The original merchant name of the Expense
 maskedPAN | The masked account number of the card for the transaction.
