@@ -588,7 +588,7 @@ Allows you to create expenses in a user’s account.
 Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 type | String | "expenses" | Specifies to the job that it has to create expenses.
-employeeEmail | String | A valid email address | The expenses will be created in this account. |
+employeeEmail | String | A valid email address | The expenses will be created in this account.<br>Note: This parameter is restricted and requires advanced permissions. Reach out to <help@expensify.com> for more information. |
 transactionList | JSON array | See below | List of expense objects. |
 
 - `expense` objects
