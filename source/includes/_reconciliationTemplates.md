@@ -14,6 +14,8 @@ search: true
 
 Templates for reconciliation do not follow the same format as [templates for the report exporter](./export_report_template.html). The syntax rules are the same, as they both are based on [Freemarker](http://freemarker.org/docs/). However the data that you can access and how you access it are very different.
 
+For more information beyond this documentation, please reach out to our [Customer Community](https://community.expensify.com/). Enjoy!
+
 ## Basic format
 
 > Basic reconciliation template skeleton
