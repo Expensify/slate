@@ -667,6 +667,38 @@ policyName | String | | The name of the policy to create. |
 **Optional elements** |
 plan | String | "team", "corporate" | Specifies the [plan](https://www.expensify.com/pricing) of the policy. If not specified, the new policy will be created under the team plan.
 
+## Expense rules creator
+
+```shell
+curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
+    -d 'requestJobDescription={
+        "type": "create",
+        "credentials": {
+            "partnerUserID": "_REPLACE_",
+            "partnerUserSecret": "_REPLACE_"
+        },
+        "inputSettings": {
+            "type": "expenseRules",
+            "policyID": "0123456789ABCDEF",
+            "employeeEmail": "employee@domain.com",
+            "actions": {
+                "tag": "Tag Name"
+            }
+        }
+    }'
+```
+
+Lets you create expense rules for a given employee on a given policy.
+
+- `inputSettings`
+
+Name | Format | Valid values | Description
+-------- | --------- | ---------------- | ---------
+type | String | `expenseRules` | Specifies to the job that it has to create an expense rule.
+employeeEmail | String | | The email address of the policy member that should receive the expense rule. |
+policyID | String | A valid Expensify policy ID. | |
+actions | JSON Object | | Supported keys:<br/> `tag`, `defaultBillable` |
+
 # Read/Get
 
 ## Policy getter
@@ -1357,6 +1389,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
             "type": "expenseRules",
             "policyID": "0123456789ABCDEF",
             "employeeEmail": "employee@domain.com",
+            "ruleID": 0,
             "actions": {
                 "tag": "Tag Name"
             }
@@ -1364,7 +1397,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
     }'
 ```
 
-Lets you create expense rules for a given employee on a given policy.
+Lets you update a prexiting expense rule for a given employee on a given policy.
 
 - `inputSettings`
 
@@ -1373,7 +1406,8 @@ Name | Format | Valid values | Description
 type | String | `expenseRules` | Specifies to the job that it has to create an expense rule.
 employeeEmail | String | | The email address of the policy member that should receive the expense rule. |
 policyID | String | A valid Expensify policy ID. | |
-actions | JSON Object | | Supported keys:<br/>- `tag` |
+ruleID | Integer | The ID of the rule you want to update. | |
+actions | JSON Object | | Supported keys:<br/> `tag`, `defaultBillable` |
 
 ## Report status updater
 
