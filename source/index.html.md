@@ -1397,7 +1397,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
     }'
 ```
 
-Lets you update a prexiting expense rule for a given employee on a given policy.
+Lets you update a preexisting expense rule for a given employee on a given policy.
 
 - `inputSettings`
 
