@@ -395,7 +395,8 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
             "partnerUserID":"_REPLACE_",
             "partnerUserSecret":"_REPLACE_"
         },
-        "fileName":"myFile.csv"
+        "fileName":"myFile.csv",
+        "fileSystem":"integrationServer"
     }'
 ```
 
