@@ -925,6 +925,79 @@ adminOnly | Boolean | true, false | Whether or not to only get policies for whic
 userEmail | String | | Specifies the user to gather the policy list for. You must have been granted third-party access by that user/company domain beforehand|
 
 
+## Domain cards getter
+
+```shell
+curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
+    -d 'requestJobDescription={
+        "type":"get",
+        "credentials":{
+            "partnerUserID": "_REPLACE_",
+            "partnerUserSecret": "_REPLACE_"
+        },
+        "inputSettings": {
+            "type": "domainCardList",
+            "domain": "domain.tld"
+        }
+    }'
+```
+
+> Response
+
+> -  A success response message is comprised of a `responseCode` `200`, and a `domainCardList ` array containing the information that was requested.
+
+```
+{
+    "domainCardList": [
+        {
+            "bank": "citibank.com",
+            "cardID": 5312342,
+            "cardName": "John Doe - 1979",
+            "cardNumber": "1234XXXXXXXX1979",
+            "created": "2018-01-01 12:34:56",
+            "email": "john.doe@domain.com",
+            "externalEmployeeID": "1234567",
+            "lastImport": "2018-07-03 23:45:01",
+            "lastImportResult": 200,
+            "reimbursable": false,
+            "scrapeMinDate": ""
+        },
+        {
+            "bank": "gl1025",
+            "cardID": 6234183,
+            "cardName": "Corporate card",
+            "cardNumber": "2345XXXXXXXX6789",
+            "created": "2018-06-01 00:11:22",
+            "email": "employee@domain.tld",
+            "externalEmployeeID": "5678901",
+            "lastImport": "",
+            "lastImportResult": 200,
+            "reimbursable": false,
+            "scrapeMinDate": "2018-01-01 12:00:00"
+        }
+    ],
+    "responseCode": 200
+}
+```
+
+> - Error
+
+```
+{
+    "responseMessage":"Domain name is missing or malformed",
+    "responseCode":410
+}
+```
+
+Lets you get the list of credit cards that are assigned at the domain level.
+
+- `inputSettings`
+
+Name | Format | Valid values | Description
+-------- | --------- | ---------------- | ---------
+type | String | "domainCardList" | Specifies to the job that it has to get the list of domain credit cards.
+inputSettings.domain | String | | The name of the domain to get the cards for. |
+
 # Update
 
 ## Policy updater
