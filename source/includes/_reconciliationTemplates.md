@@ -239,9 +239,11 @@ Accessible data packages are:
 ```
 <!-- use cardOwnerData -->
 ...
-<#assign individualEmployeeWorkdayObject = cardOwnerData[report.submitterEmail]!{}>
-<#assign individualEmployeeData = individualEmployeeWorkdayObject.data!{}>
-EmployeeID: ${individualEmployeeWorkdayObject.employeeID}
+<#assign individualEmployeeObject = cardOwnerData[card.owner]!{}>
+<#assign individualEmployeeData = individualEmployeeObject.mapData!{}>
+EmployeeID: ${individualEmployeeObject.employeeID}
+First name: ${individualEmployeeData.firstName}
+Last name: ${individualEmployeeData.lastName}
 Some Custom Field: ${individualEmployeeData["customFieldName1"]}
 ```
 
