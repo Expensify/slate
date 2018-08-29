@@ -356,6 +356,7 @@ Name | Format | Valid values | Description
     </#list>
 </#list>
 ```
+
 > - **Note:** Reconciliation templates follow a slightly different format than Export Templates. The basic iterative skeleton of the template is:
 
 ```
@@ -369,6 +370,29 @@ Name | Format | Valid values | Description
      </#list>
 </#list>
 ```
+
+> - Template sample for a JSON array output.
+
+```
+[<#lt>
+<#list cards as card, reports>
+  <#list reports as report>
+      <#list report.transactionList as expense>
+        {<#lt>
+              "Original Merchant": "${expense.originalMerchant}",<#lt>
+              "Posted date": "${expense.posted}",<#lt>
+              "Sales date": "${expense.originalCreated}",<#lt>
+              "Modified Salesdate": "${expense.modifiedCreated}",<#lt>
+              "Original Amount": ${(-expense.originalAmount/100)?string("0.00")},<#lt>
+              "Modified Amount": ${expense.amountModified?then((-expense.originalAmount/100)?string("0.00"), "")}<#lt>
+        }<#sep>,</#sep><#lt>
+      </#list>
+    </#list>
+</#list>
+]
+```
+
+> - **Note:** To output a `.json` file, one would change the `fileExtension` parameter of `outputSettings` to "json".
 
 The `template` parameter is used to format the Expensify data as you wish. It is based on the Freemarker language's syntax.
 
