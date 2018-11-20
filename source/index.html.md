@@ -138,13 +138,14 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 
 ```shell
 <#if addHeader == true>
-    Merchant,Amount,Category,Report number,Expense number<#lt>
+    Merchant,Original Amount,Category,Report number,Expense number<#lt>
 </#if>
 <#assign reportNumber = 1>
 <#assign expenseNumber = 1>
 <#list reports as report>
     <#list report.transactionList as expense>
         ${expense.merchant},<#t>
+        <#-- note: expense.amount prints the original amount only -->
         ${expense.amount},<#t>
         ${expense.category},<#t>
         ${reportNumber},<#t>
@@ -155,7 +156,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 </#list>
 ```
 
-Export expense or report data in a configurable format for analysis or insertion into your accounting package.
+Export expense or report data in a configurable format for analysis or insertion into your accounting package. See the [export template format reference](./export_report_template.html) for more information about how to write export templates.
 
 ### `requestJobDescription` format
 
