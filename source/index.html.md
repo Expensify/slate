@@ -1165,22 +1165,23 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
                     "name": "Report field 1",
                     "type": "dropdown",
                     "values": [
-                    {
-                        "value": "value 1",
-                        "externalID": "1"
-                    },
-                    {
-                        "value": "value 2",
-                        "enabled": false
-                    },
-                    {
-                        "value": "value 3",
-                        "externalID": "3",
-                        enabled: true
-                    }
-                ]
-            }
-        ]
+                        {
+                            "name": "value 1",
+                            "externalID": "1"
+                        },
+                        {
+                            "name": "value 2",
+                            "enabled": false
+                        },
+                        {
+                            "name": "value 3",
+                            "externalID": "3",
+                            "enabled": true
+                        }
+                    ]
+                }
+            ]
+        }
     }'
 ```
 
