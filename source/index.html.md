@@ -102,7 +102,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
         "outputSettings":{
             "fileExtension":"csv"
         }
-    }'
+    }' \
     --data-urlencode 'template@expensify_template.ftl'
 ```
 
@@ -137,7 +137,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
             {"actionName":"markAsExported","label":"Expensify Export"},
             {"actionName":"email","recipients":"manager@domain.com,finances@domain.com", "message":"Report is ready."}
         ]
-    }'
+    }' \
     --data-urlencode 'template@expensify_template.ftl'
 ```
 
@@ -269,7 +269,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
         "outputSettings":{
             "fileExtension":"csv"
         }
-    }'
+    }' \
     --data-urlencode 'template@expensify_template.ftl'
 ```
 
