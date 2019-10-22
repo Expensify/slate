@@ -14,7 +14,7 @@ search: true
 
 Welcome to the documentation for the Expensify Integration Server. This is designed to give you all the information you need to integrate with Expensify. You will find information on how to programmatically download expense report data for analysis or insertion into your accounting package, provision accounts for new hires, and much more.
 
-While the API is a self-serve tool, there is a great place to discuss API usage on our [community forum](https://community.expensify.com/categories/expensify-api-).
+While the API is a self-serve tool, there is a great place to discuss API usage on our [community forum](https://community.expensify.com/categories/integrations-API).
 
 # Authentication
 
