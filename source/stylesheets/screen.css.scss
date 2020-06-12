@@ -589,11 +589,14 @@ html, body {
 // This is all the stuff that appears in the right half of the page
 
 .content {
+  &>div.highlight {
+    clear:none;
+  }
+
   pre, blockquote {
     background-color: $code-bg;
     color: #fff;
 
-    padding: 2em $main-padding;
     margin: 0;
     width: $examples-width;
 
@@ -615,14 +618,16 @@ html, body {
 
   pre {
     @extend %code-font;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding: 2em $main-padding;
   }
 
   blockquote {
     &>p {
       background-color: $code-annotation-bg;
-      border-radius: 6px;
-      padding: $code-annotation-padding;
-      color: transparentize($color-white, .5);
+      padding: $code-annotation-padding 2em;
+      color: #eee;
     }
   }
 }
