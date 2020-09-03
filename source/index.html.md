@@ -854,7 +854,18 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
                 "name": "Tags",
                 "tags": []
             }],
-            "tax": {}
+            "tax": {},
+            "employees": [{
+                "email": "admin@domain.com",
+                "role": "admin",
+                "submitsTo": "user@domain.com"
+            }, {
+                "email": "user@domain.com",
+                "role": "user",
+                "submitsTo": "admin@domain.com",
+                "employeeID": "Emp1",
+                "customField2": "custom information",
+            }]
         }
     }
 }
@@ -877,7 +888,7 @@ Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 type | String | "policy" | Specifies to the job that it has to get information specific to policies.
 policyIDList | JSON Array | | The IDs of the policies to get information for. |
-fields | JSON Array | "categories", "reportFields", "tags", "tax" | Specifies the fields of the policy to gather information for. |
+fields | JSON Array | "categories", "reportFields", "tags", "tax", "employees" | Specifies the fields of the policy to gather information for. |
 **Optional elements** |
 userEmail | String |   | Specifies the user to gather the policy data for. You must have been granted third-party access by that user/company domain beforehand. |
 
