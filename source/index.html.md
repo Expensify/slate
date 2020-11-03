@@ -225,7 +225,7 @@ label | String | Any string value | The exported reports will be marked as expor
 **`sftpUpload`** action |
 sftpData | JSON object | | See below |
 **`sftpUpload.sftpData`** action |
-host | String | | The SFTP host to connect to. |
+host | String | | The SFTP host to connect to. You can upload to a specific folder by setting the `homedir` (home directory) of the SFTP user to that folder. You cannot specify a specific folder any other way. |
 login | String | | The username to use for SFTP authentication. |
 password | String | | The password to use during authentication. |
 port | Integer | | The port to connect to on the SFTP server. |
