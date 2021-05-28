@@ -1395,7 +1395,11 @@ header | Boolean | true, false | Whether the first line of the file contains the
 setRequired | Boolean | true, false | If set to `true`, users will be required to tag each expense under that category.
 fileType | String | "cvs" or "tsv" | Format of the tag data.
 
-## Employee updater
+## Advanced Employee Updater
+
+Lets you add, update or remove policy members. See the [dedicated documentation](./employeeUpdater.html).
+
+## Employee updater (deprecated)
 
 ```shell
 curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
@@ -1454,6 +1458,10 @@ manager2@domain.com,manager1@domain.com,true,,Manager1ID,
     "responseCode": 500
 }
 ```
+
+<aside class="notice">
+This API is no longer maintained. To add, update or remove employees from policies, refer to the <a href="#advanced-employee-updater">Advanced Employee Updater API</a>.
+</aside>
 
 Lets you manage employees on an Expensify policy. Use this to configure or provision accounts for new hires, as well as update existing employee data.
 
