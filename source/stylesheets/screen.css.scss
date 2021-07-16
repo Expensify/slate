@@ -41,18 +41,9 @@ html, body {
 
 #toc > ul > li > a > span {
   float: right;
-  background-color: #2484FF;
+  background-color: $color-blue;
   border-radius: 40px;
   width: 20px;
-}
-
-@mixin embossed-bg {
-  background:
-    linear-gradient(to bottom, rgba(#000, 0.2), rgba(#000, 0) 8px),
-    linear-gradient(to top, rgba(#000, 0.2), rgba(#000, 0) 8px),
-    linear-gradient(to bottom, rgba($nav-embossed-border-top, 1), rgba($nav-embossed-border-top, 0) 1.5px),
-    linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px),
-    $nav-subitem-bg;
 }
 
 .tocify-wrapper {
@@ -67,7 +58,6 @@ html, body {
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
-  background-image: linear-gradient(180deg,#4f5e68 0%,#39444b 100%);
   font-size: 12px;
 
   .tocify {
@@ -373,7 +363,7 @@ html, body {
   }
 
   h1, h2, h3, h4, h5, h6 {
-      color: $color-lightSmoke;
+      color: $color-darkblue;
   }
 
   h1, h2 {
@@ -393,7 +383,7 @@ html, body {
     margin-bottom: $h1-margin-bottom;
     margin-top: 2em;
     border-top: 1px solid $color-border;
-    background: $color-warm;
+    background: $color-grey;
   }
 
   h1:first-child, div:first-child + h1 {
@@ -487,7 +477,7 @@ html, body {
 
   blockquote {
       table {
-          color: transparentize(#ffffff, .35);
+          color: transparentize($color-white, .35);
           width: 100%;
 
           th {
@@ -523,7 +513,7 @@ html, body {
   }
 
   code {
-    background-color: transparentize(#2b2725, .925);
+    background-color: transparentize($color-darkblue, .925);
     padding: 3px 5px;
     border-radius: 3px;
     @extend %break-words;
@@ -578,8 +568,8 @@ html, body {
     padding: 2px;
     margin: -2px;
     border-radius: 4px;
-    border: 1px solid #F7E633;
-    background: linear-gradient(to top left, #F7E633 0%, #F1D32F 100%);
+    border: 1px solid $color-yellow;
+    background: linear-gradient(to top left, $color-yellow 0%, $color-yellow, 100%);
   }
 }
 
@@ -594,8 +584,8 @@ html, body {
   }
 
   pre, blockquote {
-    background-color: $code-bg;
-    color: #fff;
+    background-color: $color-darkblue;
+    color: $color-white;
 
     margin: 0;
     width: $examples-width;
@@ -610,9 +600,9 @@ html, body {
     &>p { margin: 0; }
 
     a {
-      color: #fff;
+      color: $color-white;
       text-decoration: none;
-      border-bottom: dashed 1px $color-border;
+      border-bottom: dashed 1px $color-darkblue;
     }
   }
 
@@ -625,7 +615,7 @@ html, body {
 
   blockquote {
     &>p {
-      background-color: $code-annotation-bg;
+      background-color: $color-darkblue;
       padding: $code-annotation-padding 2em;
       color: #eee;
     }
@@ -689,7 +679,7 @@ html, body {
 }
 
 .highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
-  color: #909090;
+  color: $color-grey;
 }
 
 .highlight, .highlight .w {
