@@ -94,8 +94,20 @@ $phone-width: $tablet-width - $nav-width; // min width before reverting to mobil
 
 // FONTS
 ////////////////////
+
+@font-face {
+  font-family: 'GT America Exp';
+  src:font-url('GT-America-Exp-Regular.eot');
+  src:font-url('GT-America-Exp-Regular.eot#iefix') format('embedded-opentype'),
+    font-url('GT-America-Exp-Regular.woff2') format('woff2'),
+    font-url('GT-America-Exp-Regular.woff') format('woff'),
+    font-url('GT-America-Exp-Regular.tiff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 %default-font {
-  font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+  font-family: "GT America Exp", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
   font-size: 14px;
 }
 

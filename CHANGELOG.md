@@ -1,11 +1,5 @@
 # Changelog
 
-## Version 2.6.2
-
-*July 16, 2021*
-* Update Expensify logo
-* Update documentation to use brand colors
-
 ## Version 2.6.1
 
 *May 30, 2020*
