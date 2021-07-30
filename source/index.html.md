@@ -880,7 +880,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 }
 ```
 
-Lets you get specific information about listed policies. At this time, only category, report field, tag, and tax information is supported.
+Lets you get specific information about listed policies.
 
 - `inputSettings`
 
