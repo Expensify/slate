@@ -99,6 +99,7 @@ approvalLimit | Integer | If passed, determines who the employee should forward 
 overLimitApprover | String | Who the manager should forward reports to if a report is over `approvalLimit`. Required if an `approvalLimit` is specified
 isTerminated | Boolean | If set to true, the employee will be removed from the `policyID`
 approvesTo | String | If a valid email address is passed, determines who the employee should forward the report to
+role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role of the account in the policy in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.
 
 <aside class="notice">
     <strong>Important note on <code>employeeID</code></strong>: the <code>employeeID</code> field is used to detect when an employee's email address changes on your end. We set the new email as the primary login and switch the old email to a <a href="https://community.expensify.com/discussion/4432/how-to-add-a-secondary-login" target="_blank">secondary login</a>. Be careful using production employee IDs for testing purposes. Additionally, this field will automatically populate Custom Field 1 with its value in the Policy Members table for a given user, so ensure Custom Field 1 is not utilized for other data in the policy before implementing the Advanced Employee Updater.
