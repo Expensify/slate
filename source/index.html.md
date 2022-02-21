@@ -1397,7 +1397,7 @@ fileType | String | "cvs" or "tsv" | Format of the tag data.
 
 ## Advanced Employee Updater
 
-Lets you add, update or remove policy members. See the [dedicated documentation](./employeeUpdater.html).
+Lets you add, update or remove policy members. See the [dedicated documentation](./employeeUpdater/).
 
 ## Employee updater (deprecated)
 
@@ -1460,7 +1460,7 @@ manager2@domain.com,manager1@domain.com,true,,Manager1ID,
 ```
 
 <aside class="notice">
-This API is no longer maintained. To add, update or remove employees from policies, refer to the <a href="#advanced-employee-updater">Advanced Employee Updater API</a>.
+This API is no longer maintained. To add, update or remove employees from policies, refer to the <a href="employeeUpdater/">Advanced Employee Updater API</a>.
 </aside>
 
 Lets you manage employees on an Expensify policy. Use this to configure or provision accounts for new hires, as well as update existing employee data.
