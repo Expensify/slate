@@ -97,6 +97,7 @@ lastName | String | Last name of the employee in Expensify. Does not overwrite v
 customField2 | String | Custom field, displayed in the "Custom Field 2"
 approvalLimit | Integer | If passed, determines who the employee should forward the report to when they approve reports over `overLimitApprover`
 overLimitApprover | String | Who the manager should forward reports to if a report is over `approvalLimit`. Required if an `approvalLimit` is specified
+limitApprover | String | Alias for `overLimitApprover`
 isTerminated | Boolean | If set to true, the employee will be removed from the `policyID`
 approvesTo | String | If a valid email address is passed, determines who the employee should forward the report to
 role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role of the account in the policy in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.
