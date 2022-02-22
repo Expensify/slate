@@ -20,7 +20,7 @@ The advanced employee updater is designed to allow dynamic and customizable empl
    - Import additional information from the employee feed into Expensify, to reuse for custom data export
 
 <aside class="notice">
-This document assumes that you are already familiar with the Expensify API. To get more general information on authentication and request formats, please check out <a href="./">this documentation</a>.
+This document assumes that you are already familiar with the Expensify API. To get more general information on authentication and request formats, please check out <a href="../">this documentation</a>.
 </aside>
 
 # API Principles
@@ -77,7 +77,7 @@ The job uses a JSON list of objects representing employees to provision. The min
 
    - Employee's email address
    - Employee's manager email address
-   - A [policy ID](/Integration-Server/doc/#policy-list-getter)
+   - A [policy ID](../#policy-list-getter)
 
 ### Required employee fields
 
@@ -97,6 +97,7 @@ lastName | String | Last name of the employee in Expensify. Does not overwrite v
 customField2 | String | Custom field, displayed in the "Custom Field 2"
 approvalLimit | Integer | If passed, determines who the employee should forward the report to when they approve reports over `overLimitApprover`
 overLimitApprover | String | Who the manager should forward reports to if a report is over `approvalLimit`. Required if an `approvalLimit` is specified
+limitApprover | String | Alias for `overLimitApprover`
 isTerminated | Boolean | If set to true, the employee will be removed from the `policyID`
 approvesTo | String | If a valid email address is passed, determines who the employee should forward the report to
 role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role of the account in the policy in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.
@@ -264,7 +265,7 @@ The API call should be made to the regular endpoint `https://integrations.expens
 Name | Format | Valid values | Description
 --------- | --------- | --------- | ---------
 type | String | `update` | |
-credentials | JSON object | | Contains your Expensify [API credentials](./#authentication), and information to access the feed by URL if needed.
+credentials | JSON object | | Contains your Expensify [API credentials](../#authentication), and information to access the feed by URL if needed.
 dataSource | String | `download`, `request`, or `sftp` | Dictates how Expensify should retrieve your employee feed.
 inputSettings | JSON object | See `inputSettings` below. |
 **Optional elements** |
