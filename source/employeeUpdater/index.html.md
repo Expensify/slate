@@ -73,11 +73,7 @@ This document assumes that you are already familiar with the Expensify API. To g
 }
 ```
 
-The job uses a JSON list of objects representing employees to provision. The minimum information required for each employee is:
-
-   - Employee's email address
-   - Employee's manager email address
-   - A [policy ID](../#policy-list-getter)
+The job uses a JSON list of objects representing employees to provision.
 
 ### Required employee fields
 
