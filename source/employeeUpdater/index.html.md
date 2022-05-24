@@ -33,12 +33,14 @@ This document assumes that you are already familiar with the Expensify API. To g
         {
             "employeeEmail": "employee@domain.com",
             "managerEmail": "manager@domain.com",
-            "policyID": "0123456789ABCDEF"
+            "policyID": "0123456789ABCDEF",
+            "employeeID": "12345"
         },
         {
             "employeeEmail": "manager@domain.com",
             "managerEmail": "ceo@domain.com",
-            "policyID": "0123456789ABCDEF"
+            "policyID": "0123456789ABCDEF",
+            "employeeID": "34567"
         }
     ]
 }
