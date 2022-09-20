@@ -493,7 +493,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 }
 ```
 
-Lets you create a report, with transactions, in a user’s account.
+Lets you create a report, with transactions, in a user’s account. Before you can do this, you must reach out to concierge@expensify.com to enable this functionality for your domain. You must be a domain and policy admin. If you continue to receive the error "Not authorized to authenticate as user", this has not yet been enabled for you.
 
 ### `requestJobDescription` format
 
