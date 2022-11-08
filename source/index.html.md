@@ -90,7 +90,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
         "inputSettings":{
             "type":"combinedReportData",
             "filters":{
-                "reportIDList":"1234567,2233445"
+                "reportIDList": "R00bCluvcO4T,R006AseGxMka"
             }
         },
         "outputSettings":{
@@ -480,7 +480,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 {
     "responseCode": 200,
     "reportName": "Name of the report",
-    "reportID": "3397451"
+    "reportID": "R006AseGxMka"
 }
 ```
 
@@ -561,7 +561,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
                     "currency": "CAD",
                     "merchant": "Name of merchant 3",
                     "amount": 2211,
-                    "reportID": 4,
+                    "reportID": "R006AseGxMka",
                     "tax": {
                         "rateID":"id_TAX_OPTION_16",
                         "amount":600
@@ -1544,7 +1544,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
             "type":"reportStatus",
             "status" : "REIMBURSED",
             "filters":{
-                "reportIDList":"1234567,1234568,1234569"
+                "reportIDList": "R006AseGxMka,R00bCluvcO4T"
             }
         }
     }'
@@ -1565,9 +1565,8 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 {
     "responseCode" : 200,
     "reportIDs" : [
-        1234567,
-        1234568,
-        1234569
+        "R006AseGxMka",
+        "R00bCluvcO4T"
     ]
 }
 ```
@@ -1581,18 +1580,18 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 {
     "responseCode" : 207,
     "reportIDs" : [
-        1234567
+        "R00bCluvcO4T"
     ],
     "skippedReports" : [
         {
             "reason" : "Report is in status 'Open'",
-            "reportID" : 1234568
+            "reportID" : "R006AseGxMka"
         }
     ],
     "failedReports": [
         {
             "reason" : "Internal error",
-            "reportID" : 1234569
+            "reportID" : "R002bGmt16ac"
         }
     ]
 }
