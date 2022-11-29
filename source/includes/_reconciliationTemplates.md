@@ -143,13 +143,14 @@ owner | The email address of the Expensify account that owns the card, or that t
 
 Name  | Description
 -------- | ---------
+base62ID | The Base-62 ID of the report. This is the ID you see on the Expensify website.
 currency | The currency of the report.
 getApproved() | The approved date of the report, as a string (format `yyyy-MM-dd hh:mm:ss`), or `null` if the report wasn't submitted. 
 getSubmitted() | The submitted date of the report, as a string (format `yyyy-MM-dd hh:mm:ss`),  or `null` if the report wasn't submitted.
 hasAttachment() | Whether the report contains any attachment.
 hasBeenApproved() | Whether or not the report has been approved. 
-ID | The ID of the report
 hasEverBeenExportedTo(template_name) | Whether or not the report has been exported to the template or integration name provided.
+ID | The Base-10 representation of report's ID
 isACHReimbursed() | Whether the report has been reimbursed via ACH
 isClosed() | Whether or not the report is approved.
 isOpen() | Whether or not the report is in the `OPEN` state
@@ -173,6 +174,7 @@ Name  | Description
 -------- | ---------
 amount | The amount of the expense, in cents
 bank | The bank of the expense
+base62ReportID | The Base-62 ID of the expense's report ID.
 billable | Whether or not the expense is billable
 cardID | The ID of the card for the expense
 category | The category of the expense.
@@ -199,7 +201,7 @@ posted | The Expense's posted date, in format `yyyy-MM-dd`
 receiptID | The Receipt ID of the expense
 receiptURL | The URL for the receipt attached to the expense.
 reimbursable | Whether or not the expense is reimbursable
-reportID | The Report ID of the expense
+reportID | The Base-10 representation of the expense's report ID.
 split | Whether or not the transaction originated from a split expense action.
 tag | The tag of the expense
 taxAmount | The tax amount on the expense.
