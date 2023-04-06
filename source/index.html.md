@@ -187,11 +187,11 @@ employeeEmail | String | A valid email address<br/>**Note:**<br/> * The usage of
 
 Name | Format | Valid values | Description
 --------- | --------- | --------- | ---------
-reportIDList | String, <br/>*Optional* |  | Comma-separated list of report IDs to be exported.
+reportIDList | String, <br/>*Required if `startDate` or `approvedAfter` are not specified* |  | Comma-separated list of report IDs to be exported.
 policyIDList | String, <br/>*Optional* |  | Comma-separated list of policy IDs the exported reports must be under.
-startDate | Date, <br/>*Required if `reportIDList` is not specified* | yyyy-mm-dd formatted date | Filters out all reports submitted or created before the given date, whichever occurred last (inclusive).
+startDate | Date, <br/>*Required if `reportIDList` or `approvedAfter` are not specified* | yyyy-mm-dd formatted date | Filters out all reports submitted or created before the given date, whichever occurred last (inclusive).
 endDate | Date, <br/> *Optional* | yyyy-mm-dd formatted date | Filters out all reports submitted or created after the given date, whichever occurred last (inclusive). |
-approvedAfter | Date, <br/> *Optional* | yyyy-mm-dd formatted date | Filters out all reports approved before, or on that date. This filter is only used against reports that have been approved. |
+approvedAfter | Date, <br/>*Required if `reportIDList` or `startDate` are not specified* | yyyy-mm-dd formatted date | Filters out all reports approved before, or on that date. This filter is only used against reports that have been approved. |
 markedAsExported | String,<br/>*Optional* | Any string | Filters out reports that have already been exported with that label out.
 
 
@@ -203,7 +203,6 @@ fileExtension | String | One or multiple of "csv", "xls", "xlsx", "txt",  "pdf",
 **Optional elements** |
 fileBasename | String | Any valid file base name | The name of the generated file(s) will start with this value, and a random part will be added to make each filename globally unique. If not specified, the default value `export` is used. |
 includeFullPageReceiptsPdf | Boolean | `true`, `false` | Specifies whether generated PDFs should include full page receipts. This parameter is used only if `fileExtension` contains `pdf`. |
-spreadsheetFilename | String | Name of a workbook template stored for you on Expensify. (e.g. "testWorkbook.xlsx") | Specifies workbook template that report data will be written to. <br />*Note*: if this is provided, then the only file made available to export will be an xlsx file. All other file extensions provided in `fileExtension` will be ignored. This is an enterprise feature.
 
 - `onFinish` (Optional)
 
