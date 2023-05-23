@@ -59,7 +59,8 @@ This document assumes that you are already familiar with the Expensify API. To g
             "customField2": "ABC123",
             "approvalLimit": 12300,
             "overLimitApprover": "audit@domain.com",
-            "isTerminated": false
+            "isTerminated": false,
+            "additionalPolicyIDs": ["ABCDEF0123456789", "456789ABCDEF0123"]
         },
         {
             "employeeEmail": "manager@domain.com",
@@ -100,6 +101,7 @@ isTerminated | Boolean | If set to true, the employee will be removed from the `
 domainGroupID | String | The ID of the domain group this domain member should be added to
 approvesTo | String | If a valid email address is passed, determines who the employee should forward the report to
 role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role of the account in the policy in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.
+additionalPolicyIDs | JSON array | List of additional policies the employee should be added to
 
 <aside class="notice">
     <strong>Important note on <code>employeeID</code></strong>: the <code>employeeID</code> field is used to detect when an employee's email address changes on your end. We set the new email as the primary login and switch the old email to a <a href="https://community.expensify.com/discussion/4432/how-to-add-a-secondary-login" target="_blank">secondary login</a>. Be careful using production employee IDs for testing purposes. Additionally, this field will automatically populate Custom Field 1 with its value in the Policy Members table for a given user, so ensure Custom Field 1 is not utilized for other data in the policy before implementing the Advanced Employee Updater.
