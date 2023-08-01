@@ -69,6 +69,7 @@ This document assumes that you are already familiar with the Expensify API. To g
             "employeeID": "34567",
             "firstName": "Michael",
             "lastName": "Scott",
+            "customField1": "ZZZ333",
             "customField2": "BCD345",
             "isTerminated": false
         }
@@ -93,6 +94,7 @@ Field name | Type | Description
 ---------- | ---- | -----------
 firstName | String | First name of the employee in Expensify. Does not overwrite values manually set by the employee in their Expensify account
 lastName | String | Last name of the employee in Expensify. Does not overwrite values manually set by the employee in their Expensify account
+customField1 | String | Custom field, displayed in the "Custom Field 1"
 customField2 | String | Custom field, displayed in the "Custom Field 2"
 approvalLimit | Integer | If passed, determines who the employee should forward the report to when they approve reports over `overLimitApprover`
 overLimitApprover | String | Who the manager should forward reports to if a report is over `approvalLimit`. Required if an `approvalLimit` is specified
@@ -104,7 +106,7 @@ role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role
 additionalPolicyIDs | JSON array | List of additional policies the employee should be added to
 
 <aside class="notice">
-    <strong>Important note on <code>employeeID</code></strong>: the <code>employeeID</code> field is used to detect when an employee's email address changes on your end. We set the new email as the primary login and switch the old email to a <a href="https://community.expensify.com/discussion/4432/how-to-add-a-secondary-login" target="_blank">secondary login</a>. Be careful using production employee IDs for testing purposes. Additionally, this field will automatically populate Custom Field 1 with its value in the Policy Members table for a given user, so ensure Custom Field 1 is not utilized for other data in the policy before implementing the Advanced Employee Updater.
+    <strong>Important note on <code>employeeID</code></strong>: the <code>employeeID</code> field is used to detect when an employee's email address changes on your end. We set the new email as the primary login and switch the old email to a <a href="https://community.expensify.com/discussion/4432/how-to-add-a-secondary-login" target="_blank">secondary login</a>. Be careful using production employee IDs for testing purposes. Additionally, this field will automatically populate Custom Field 1 with its value in the Policy Members table for a given user, as long as no other custom value is passed to that field. Ensure Custom Field 1 is not utilized for other data in the policy before implementing the Advanced Employee Updater.
 </aside>
 
 # Request format
