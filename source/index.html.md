@@ -1358,7 +1358,7 @@ Multiple objects can be specified. Each one corresponds to a level in multi-leve
 Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 name | String | | The name of the tag level. Only use with multi-level tagging.
-setRequired | Boolean | `true`, `false` | Whether users must specify a tag for that level, when coding expenses.
+setRequired | Boolean | `true`, `false` | Whether users must specify a tag for that level, when coding expenses. This is set to `false` by default.
 tags | JSON array | See below | The tags for that level.
 
 - `tags.data.tags` objects
