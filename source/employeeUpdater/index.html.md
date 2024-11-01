@@ -99,6 +99,7 @@ customField2 | String | Custom field, displayed in the "Custom Field 2"
 approvalLimit | Integer | If passed, determines who the employee should forward the report to when they approve reports over `overLimitApprover`
 overLimitApprover | String | Who the manager should forward reports to if a report is over `approvalLimit`. Required if an `approvalLimit` is specified
 limitApprover | String | Alias for `overLimitApprover`
+workerStatus | String | If "On Leave", they won't be added as any employee's manager. They'll be replaced by their own manager
 isTerminated | Boolean | If set to true, the employee will be removed from the `policyID`
 domainGroupID | String | The ID of the domain group this domain member should be added to
 approvesTo | String | If a valid email address is passed, determines who the employee should forward the report to
