@@ -101,13 +101,16 @@ overLimitApprover | String | Who the manager should forward reports to if a repo
 limitApprover | String | Alias for `overLimitApprover`
 workerStatus | String | If "On Leave", they won't be added as any employee's manager. They'll be replaced by their own manager
 isTerminated | Boolean | If set to true, the employee will be removed from the `policyID`
-domainGroupID | String | The ID of the domain group this domain member should be added to
+domainGroupID | String | The ID of the domain group this domain member should be added to<br/><i>See note below</i>.
 approvesTo | String | If a valid email address is passed, determines who the employee should forward the report to
 role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role of the account in the policy in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.
 additionalPolicyIDs | JSON array | List of additional policies the employee should be added to
 
 <aside class="notice">
     <strong>Important note on <code>employeeID</code></strong>: the <code>employeeID</code> field is used to detect when an employee's email address changes on your end. We set the new email as the primary login and switch the old email to a <a href="https://community.expensify.com/discussion/4432/how-to-add-a-secondary-login" target="_blank">secondary login</a>. Be careful using production employee IDs for testing purposes. Additionally, this field will automatically populate Custom Field 1 with its value in the Policy Members table for a given user, as long as no other custom value is passed to that field. Ensure Custom Field 1 is not utilized for other data in the policy before implementing the Advanced Employee Updater.
+</aside>
+<aside class="notice">
+    <strong>Important note on <code>domainGroupID</code></strong>: Domain group assignment is only performed if <strong>all</strong> employee objects have a non-null <code>domainGroupID</code> specified. If any employee is not passed a <code>domainGroupID</code>, then domain groups are not assigned for any employee.
 </aside>
 
 # Request format
