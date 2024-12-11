@@ -60,6 +60,7 @@ This document assumes that you are already familiar with the Expensify API. To g
             "approvalLimit": 12300,
             "overLimitApprover": "audit@domain.com",
             "isTerminated": false,
+            "workerStatus": "On Leave",
             "additionalPolicyIDs": ["ABCDEF0123456789", "456789ABCDEF0123"]
         },
         {
