@@ -37,8 +37,6 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 
 Every request to the Expensify API follows the same pattern: a JSON payload that identifies the job to execute is passed as a parameter called `requestJobDescription`. Additionally, other parameters may be needed based on the type of job.
 
-Finally, there is a general rate limit of 50 jobs started per minute. Exceeding this limit will result in the following error message: `You have been rate-limited. Please try again later or contact help@expensify.com for assistance.`
-
 Every request has to be made against the endpoint `https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations`.
 
 ## `requestJobDescription` format
@@ -65,6 +63,15 @@ type | String | The type of job to execute
 credentials | JSON object | An object containing two key/values used to authenticate you: `partnerUserID` and `partnerUserSecret`.
 `inputSettings` | JSON Object | Additional information about the job to execute
 
+# Rate limits
+
+
+Expensify uses the following rate limits to handle spikes in API requests and maximize platform stability:
+
+- A maximum of 5 requests per 10-second interval
+- A maximum of 20 requests per 60-second interval
+
+Sending more requests than described above might result in error responses with status code `429`.
 
 # Export
 
