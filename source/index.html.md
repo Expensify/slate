@@ -156,7 +156,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 </#list>
 ```
 
-Export expense or report data in a configurable format for analysis or insertion into your accounting package. See the [export template format reference](./export_report_template.html) for more information about how to write export templates.
+Export expense or report data in a configurable format for analysis or insertion into your accounting package, either by specifying a list of report IDs, or a date range up to one year. See the [export template format reference](./export_report_template.html) for more information about how to write export templates.
 
 ### `requestJobDescription` format
 
@@ -188,10 +188,9 @@ Name | Format | Valid values | Description
 reportIDList | String, <br/>*Required if `startDate` or `approvedAfter` are not specified* |  | Comma-separated list of report IDs to be exported.
 policyIDList | String, <br/>*Optional* |  | Comma-separated list of policy IDs the exported reports must be under.
 startDate | Date, <br/>*Required if `reportIDList` or `approvedAfter` are not specified* | yyyy-mm-dd formatted date | Filters out all reports submitted or created before the given date, whichever occurred last (inclusive).
-endDate | Date, <br/> *Optional* | yyyy-mm-dd formatted date | Filters out all reports submitted or created after the given date, whichever occurred last (inclusive). |
+endDate | Date, <br/> *Required if either `startDate` or `approvedAfter` is specified* | yyyy-mm-dd formatted date | Filters out all reports submitted or created after the given date, whichever occurred last (inclusive).<br/>The total date range cannot exceed one year. |
 approvedAfter | Date, <br/>*Required if `reportIDList` or `startDate` are not specified* | yyyy-mm-dd formatted date | Filters out all reports approved before, or on that date. This filter is only used against reports that have been approved. |
 markedAsExported | String,<br/>*Optional* | Any string | Filters out reports that have already been exported with that label out.
-
 
 - `outputSettings`
 
