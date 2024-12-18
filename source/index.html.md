@@ -14,6 +14,8 @@ search: true
 
 Welcome to the documentation for the Expensify Integration Server. This is designed to give you all the information you need to integrate with Expensify. You will find information on how to programmatically download expense report data for analysis or insertion into your accounting package, provision accounts for new hires, and much more.
 
+While the API is a self-serve tool, we have compiled some customer FAQs in [ExpensifyHelp](https://help.expensify.com/expensify-classic/hubs/connections/Expensify-API).
+
 # Authentication
 
 To use the API, you will need to generate API credentials.
@@ -36,8 +38,6 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 ```
 
 Every request to the Expensify API follows the same pattern: a JSON payload that identifies the job to execute is passed as a parameter called `requestJobDescription`. Additionally, other parameters may be needed based on the type of job.
-
-Finally, there is a general rate limit of 50 jobs started per minute. Exceeding this limit will result in the following error message: `You have been rate-limited. Please try again later or contact help@expensify.com for assistance.`
 
 Every request has to be made against the endpoint `https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations`.
 
@@ -65,6 +65,13 @@ type | String | The type of job to execute
 credentials | JSON object | An object containing two key/values used to authenticate you: `partnerUserID` and `partnerUserSecret`.
 `inputSettings` | JSON Object | Additional information about the job to execute
 
+# Rate limits
+
+To keep our platform stable and handle high traffic, Expensify limits how many API requests you can send:
+- Up to 5 requests every 10 seconds
+- Up to 20 requests every 60 seconds
+
+Sending more requests than allowed may result in an error with status code `429`.
 
 # Export
 
