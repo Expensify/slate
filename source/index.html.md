@@ -67,13 +67,11 @@ credentials | JSON object | An object containing two key/values used to authenti
 
 # Rate limits
 
+To keep our platform stable and handle high traffic, Expensify limits how many API requests you can send:
+- Up to 5 requests every 10 seconds
+- Up to 20 requests every 60 seconds
 
-Expensify uses the following rate limits to handle spikes in API requests and maximize platform stability:
-
-- A maximum of 5 requests per 10-second interval
-- A maximum of 20 requests per 60-second interval
-
-Sending more requests than described above might result in error responses with status code `429`.
+Sending more requests than allowed may result in an error with status code `429`.
 
 # Export
 
