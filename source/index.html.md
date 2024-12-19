@@ -68,6 +68,7 @@ credentials | JSON object | An object containing two key/values used to authenti
 # Rate limits
 
 To keep our platform stable and handle high traffic, Expensify limits how many API requests you can send:
+
 - Up to 5 requests every 10 seconds
 - Up to 20 requests every 60 seconds
 
