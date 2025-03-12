@@ -106,6 +106,7 @@ domainGroupID | String | The ID of the domain group this domain member should be
 approvesTo | String | If a valid email address is passed, determines who the employee should forward the report to
 role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role of the account in the policy in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.
 additionalPolicyIDs | JSON array | List of additional policies the employee should be added to
+shouldRemoveFromUnassignedPolicies | Boolean | Whether to remove an employee from policies they're not direcly assigned to via `policyID`, `additionalPolicyIDs`, or as another employee's `managerEmail`. Defaults to `false`.
 
 <aside class="notice">
     <strong>Important note on <code>employeeID</code></strong>: the <code>employeeID</code> field is used to detect when an employee's email address changes on your end. We set the new email as the primary login and switch the old email to a <a href="https://community.expensify.com/discussion/4432/how-to-add-a-secondary-login" target="_blank">secondary login</a>. Be careful using production employee IDs for testing purposes. Additionally, this field will automatically populate Custom Field 1 with its value in the Policy Members table for a given user, as long as no other custom value is passed to that field. Ensure Custom Field 1 is not utilized for other data in the policy before implementing the Advanced Employee Updater.
@@ -280,7 +281,7 @@ inputSettings | JSON object | See `inputSettings` below. |
 dry-run | Boolean | true, false | If set to true, employees will not actually be provisioned or updated. Use this for development. |
 onFinish | JSON array | See onFinish | You can configure the `recipients` list of email addresses that should receive a summary email of the changes made by the API.
 setEmployeePrimaryPolicy | String | `none` (default), `new_employees`, `all_employees` | `none`: we will never update an employee's primary policy.<br>`new_employees`: we will set an employee's primary policy to the `policyID` parameter if they were not a member of that policy yet.<br>`all_employees`: we will update the primary policy for every employee.
-shouldFixApprovalChains | Boolean | `true` (default), `false` | Dictates whether Expensify will automatically invite managers (`submitsTo`), managers’ managers, and so on to policies where they approve reports, if it is not their primary policy.
+shouldFixApprovalChains | Boolean | `true` (default), `false` | Dictates whether Expensify will automatically invite managers (`managerEmail`), managers’ managers, and so on to policies where they approve reports, if it is not their primary policy.
 
 - `inputSettings`
 
