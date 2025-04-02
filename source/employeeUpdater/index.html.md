@@ -28,55 +28,51 @@ This document assumes that you are already familiar with the Expensify API. To g
 > Employee feed examples with various amounts of information provided:
 
 ```json
-{
-    "Employees": [
-        {
-            "employeeEmail": "employee@domain.com",
-            "managerEmail": "manager@domain.com",
-            "policyID": "0123456789ABCDEF",
-            "employeeID": "12345"
-        },
-        {
-            "employeeEmail": "manager@domain.com",
-            "managerEmail": "ceo@domain.com",
-            "policyID": "0123456789ABCDEF",
-            "employeeID": "34567"
-        }
-    ]
-}
+[
+    {
+        "employeeEmail": "employee@domain.com",
+        "managerEmail": "manager@domain.com",
+        "policyID": "0123456789ABCDEF",
+        "employeeID": "12345"
+    },
+    {
+        "employeeEmail": "manager@domain.com",
+        "managerEmail": "ceo@domain.com",
+        "policyID": "0123456789ABCDEF",
+        "employeeID": "34567"
+    }
+]
 ```
 
 ```json
-{
-    "Employees": [
-        {
-            "employeeEmail": "employee@domain.com",
-            "managerEmail": "manager@domain.com",
-            "policyID": "0123456789ABCDEF",
-            "employeeID": "12345",
-            "firstName": "John",
-            "lastName": "Doe",
-            "customField2": "ABC123",
-            "approvalLimit": 12300,
-            "overLimitApprover": "audit@domain.com",
-            "isTerminated": false,
-            "workerStatus": "On Leave",
-            "additionalPolicyIDs": ["ABCDEF0123456789", "456789ABCDEF0123"],
-            "defaultTags": ["Engineering", "North America"]
-        },
-        {
-            "employeeEmail": "manager@domain.com",
-            "managerEmail": "ceo@domain.com",
-            "policyID": "0123456789ABCDEF",
-            "employeeID": "34567",
-            "firstName": "Michael",
-            "lastName": "Scott",
-            "customField1": "ZZZ333",
-            "customField2": "BCD345",
-            "isTerminated": false
-        }
-    ]
-}
+[
+    {
+        "employeeEmail": "employee@domain.com",
+        "managerEmail": "manager@domain.com",
+        "policyID": "0123456789ABCDEF",
+        "employeeID": "12345",
+        "firstName": "John",
+        "lastName": "Doe",
+        "customField2": "ABC123",
+        "approvalLimit": 12300,
+        "overLimitApprover": "audit@domain.com",
+        "isTerminated": false,
+        "workerStatus": "On Leave",
+        "additionalPolicyIDs": ["ABCDEF0123456789", "456789ABCDEF0123"],
+        "defaultTags": ["Engineering", "North America"]
+    },
+    {
+        "employeeEmail": "manager@domain.com",
+        "managerEmail": "ceo@domain.com",
+        "policyID": "0123456789ABCDEF",
+        "employeeID": "34567",
+        "firstName": "Michael",
+        "lastName": "Scott",
+        "customField1": "ZZZ333",
+        "customField2": "BCD345",
+        "isTerminated": false
+    }
+]
 ```
 
 The job uses a JSON list of objects representing employees to provision.
