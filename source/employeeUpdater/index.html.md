@@ -28,54 +28,51 @@ This document assumes that you are already familiar with the Expensify API. To g
 > Employee feed examples with various amounts of information provided:
 
 ```json
-{
-    "Employees": [
-        {
-            "employeeEmail": "employee@domain.com",
-            "managerEmail": "manager@domain.com",
-            "policyID": "0123456789ABCDEF",
-            "employeeID": "12345"
-        },
-        {
-            "employeeEmail": "manager@domain.com",
-            "managerEmail": "ceo@domain.com",
-            "policyID": "0123456789ABCDEF",
-            "employeeID": "34567"
-        }
-    ]
-}
+[
+    {
+        "employeeEmail": "employee@domain.com",
+        "managerEmail": "manager@domain.com",
+        "policyID": "0123456789ABCDEF",
+        "employeeID": "12345"
+    },
+    {
+        "employeeEmail": "manager@domain.com",
+        "managerEmail": "ceo@domain.com",
+        "policyID": "0123456789ABCDEF",
+        "employeeID": "34567"
+    }
+]
 ```
 
 ```json
-{
-    "Employees": [
-        {
-            "employeeEmail": "employee@domain.com",
-            "managerEmail": "manager@domain.com",
-            "policyID": "0123456789ABCDEF",
-            "employeeID": "12345",
-            "firstName": "John",
-            "lastName": "Doe",
-            "customField2": "ABC123",
-            "approvalLimit": 12300,
-            "overLimitApprover": "audit@domain.com",
-            "isTerminated": false,
-            "workerStatus": "On Leave",
-            "additionalPolicyIDs": ["ABCDEF0123456789", "456789ABCDEF0123"]
-        },
-        {
-            "employeeEmail": "manager@domain.com",
-            "managerEmail": "ceo@domain.com",
-            "policyID": "0123456789ABCDEF",
-            "employeeID": "34567",
-            "firstName": "Michael",
-            "lastName": "Scott",
-            "customField1": "ZZZ333",
-            "customField2": "BCD345",
-            "isTerminated": false
-        }
-    ]
-}
+[
+    {
+        "employeeEmail": "employee@domain.com",
+        "managerEmail": "manager@domain.com",
+        "policyID": "0123456789ABCDEF",
+        "employeeID": "12345",
+        "firstName": "John",
+        "lastName": "Doe",
+        "customField2": "ABC123",
+        "approvalLimit": 12300,
+        "overLimitApprover": "audit@domain.com",
+        "isTerminated": false,
+        "workerStatus": "On Leave",
+        "additionalPolicyIDs": ["ABCDEF0123456789", "456789ABCDEF0123"],
+        "defaultTags": ["Engineering", "North America"]
+    },
+    {
+        "employeeEmail": "manager@domain.com",
+        "managerEmail": "ceo@domain.com",
+        "policyID": "0123456789ABCDEF",
+        "employeeID": "34567",
+        "firstName": "Michael",
+        "lastName": "Scott",
+        "customField1": "ZZZ333",
+        "customField2": "BCD345",
+        "isTerminated": false
+    }
+]
 ```
 
 The job uses a JSON list of objects representing employees to provision.
@@ -107,6 +104,7 @@ approvesTo | String | If a valid email address is passed, determines who the emp
 role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role of the account in the policy in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.
 additionalPolicyIDs | JSON array | List of additional policies the employee should be added to
 shouldRemoveFromUnassignedPolicies | Boolean | Whether to remove an employee from policies they're not direcly assigned to via `policyID`, `additionalPolicyIDs`, or as another employee's `managerEmail`. Defaults to `false`.
+defaultTags | JSON Array | Default tag values when the employee creates an expense on that policy.
 
 <aside class="notice">
     <strong>Important note on <code>employeeID</code></strong>: the <code>employeeID</code> field is used to detect when an employee's email address changes on your end. We set the new email as the primary login and switch the old email to a <a href="https://community.expensify.com/discussion/4432/how-to-add-a-secondary-login" target="_blank">secondary login</a>. Be careful using production employee IDs for testing purposes. Additionally, this field will automatically populate Custom Field 1 with its value in the Policy Members table for a given user, as long as no other custom value is passed to that field. Ensure Custom Field 1 is not utilized for other data in the policy before implementing the Advanced Employee Updater.
