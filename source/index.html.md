@@ -1345,7 +1345,7 @@ Tags can be specified in two ways:
 
 #### Tag levels dependency
 For multi-level tagging, Expensify has the notion of tag level dependency. This means each tag level is dependent on the parent tag level above it.
-For more information and examples about multi-tagging, please refer to our [help site](https://docs.expensify.com/setup-for-admins-and-accountants/advanced-configuration-for-managers-and-accountants/tags).
+For more information and examples about multi-tagging, please refer to our [help site](https://help.expensify.com/articles/expensify-classic/workspaces/Create-tags).
 
 #### Passing tag data in JSON (independent levels only)
 
