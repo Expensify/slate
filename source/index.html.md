@@ -1547,6 +1547,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
         "inputSettings":{
             "type":"reportStatus",
             "status" : "REIMBURSED",
+            "paymentSource": "ADP",
             "filters":{
                 "reportIDList": "R006AseGxMka,R00bCluvcO4T"
             }
@@ -1620,6 +1621,7 @@ Name | Format | Valid values | Description
 -------- | --------- | ---------------- | ---------
 type | String | "reportStatus" | Specifies to the job that it has to update the status of a list of reports.
 status | String | "REIMBURSED" | The status to change the reports to. At the moment, only Reimbursed is supported.<br/>**Only reports in the `Approved` status can be updated to `Reimbursed`. All other reports will be ignored.** |
+paymentSource | String | String value between 1 and 100 characters | Optional name to indicate where the payment was made
 filters | JSON object | See inputSettings filters |
 
 
