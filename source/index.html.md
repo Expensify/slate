@@ -1632,3 +1632,85 @@ Name | Format | Valid values | Description
 | reportIDList | String, <br/>*Optional* |  | Comma-separated list of report IDs to update. |
 | startDate | Date, <br/>*Required if `reportIDList` is not specified* | yyyy-mm-dd formatted date | Filters out all reports submitted or created before the given date, whichever occurred last (inclusive). |
 | endDate | Date, <br/> *Optional* | yyyy-mm-dd formatted date | Filters out all reports submitted or created after the given date, whichever occurred last (inclusive).
+
+## Tag approvers updater
+
+```shell
+curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
+    -d 'requestJobDescription={
+        "type": "update",
+        "credentials": {
+            "partnerUserID": "_REPLACE_",
+            "partnerUserSecret": "_REPLACE_"
+        },
+        "inputSettings": {
+            "type": "tagApprovers",
+            "policyID": "0123456789ABCDEF"
+        },
+        "tagApprovers": [
+            {
+                "name": "Travel",
+                "approver": "manager@domain.com"
+            },
+            {
+                "name": "Office Supplies",
+                "approver": "office-manager@domain.com"
+            },
+            {
+                "name": "Meals",
+                "approver": ""
+            }
+        ]
+    }'
+```
+
+> Response
+
+> - Success
+
+```
+{
+    "responseCode": 200
+}
+```
+
+> - Error
+
+```
+{
+    "responseMessage": "Invalid tag name 'InvalidTag'",
+    "responseCode": 410
+}
+```
+
+> Error code | Description
+> -------- | ---------
+> 403 | Invalid permissions (user is not a policy admin)
+> 410 | Validation error (invalid policyID, tag name, or approver email)
+> 500 | Generic error
+
+Lets you set approvers for individual tags on a policy. When an expense with a specific tag is submitted, it will be routed to the designated approver for that tag.
+
+**Note:** This updater only supports single-level tag lists. Multi-level tags are not supported.
+
+### `requestJobDescription` format
+
+- `inputSettings`
+
+Name | Format | Valid values | Description
+-------- | --------- | ---------------- | ---------
+type | String | "tagApprovers" | Specifies to the job that it has to update tag approvers.
+policyID | String | Any valid Expensify policy ID, owned or shared with the user with admin permissions. | The ID of the policy to update tag approvers for. |
+
+- `tagApprovers`
+
+Name | Format | Valid values | Description
+-------- | --------- | ---------------- | ---------
+tagApprovers | JSON array | See below | List of tag approver assignments. |
+
+- `tagApprovers` objects
+
+Name | Format | Description
+-------- | --------- | ---------
+name | String | The name of the tag to set an approver for. Must match an existing tag on the policy. |
+approver | String | The email address of the policy member who should approve expenses with this tag. Use an empty string to clear the approver. |
