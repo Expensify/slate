@@ -280,6 +280,7 @@ dry-run | Boolean | true, false | If set to true, employees will not actually be
 onFinish | JSON array | See onFinish | You can configure the `recipients` list of email addresses that should receive a summary email of the changes made by the API.
 setEmployeePrimaryPolicy | String | `none` (default), `new_employees`, `all_employees` | `none`: we will never update an employee's primary policy.<br>`new_employees`: we will set an employee's primary policy to the `policyID` parameter if they were not a member of that policy yet.<br>`all_employees`: we will update the primary policy for every employee.
 shouldFixApprovalChains | Boolean | `true` (default), `false` | Dictates whether Expensify will automatically invite managers (`managerEmail`), managers’ managers, and so on to policies where they approve reports, if it is not their primary policy.
+shouldSkipNotificationEmail | Boolean | `true`, `false` (default) | If set to `true`, employees who get invited to a policy will not receive an email.
 
 - `inputSettings`
 
