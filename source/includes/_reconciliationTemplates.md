@@ -50,9 +50,9 @@ In the archetypical example to the right, we iterate over each entry of the `car
 ```freemarker
 <#-- Functions -->
 <#function quoteCsv string>
-   <#if isCsv && string?contains(",") && !string?starts_with("\"")>
-       <#return "\"" + string?replace("\"", "\\\"") + "\"">
-   </#if>
+    <#if isCsv && string?contains(",") && !string?starts_with("\"")>
+        <#return "\"" + string?replace("\"", "\\\"") + "\"">
+    </#if>
     <#return string>
 </#function>
 <#function unescapeHtml string>
@@ -67,7 +67,8 @@ In the archetypical example to the right, we iterate over each entry of the `car
     Modified Sales date,<#t>
     Original Amount,<#t>
     Modified Amount,<#t>
-    Currency,Split,<#t>
+    Currency,<#t>
+    Split,<#t>
     Category,<#t>
     Tag,<#t>
     Email,<#t>
@@ -104,27 +105,27 @@ In the archetypical example to the right, we iterate over each entry of the `car
             <#else>
                 <#assign reportID = "">
             </#if>
-            ${quoteCsv(unescapeHtml(transaction.originalMerchant))},<#t>
-            ${quoteCsv(unescapeHtml(transaction.modifiedMerchant))},<#t>
-            ${transaction.posted},<#t>
-            ${transaction.originalCreated},<#t>
-            ${modifiedCreated},<#t>
-            ${(-transaction.originalAmount/100)?string("0.##")},<#t>
-            ${transaction.amountModified?then((-transaction.modifiedAmount/100)?string("0.##"), "")},<#t>
-            ${transaction.currency},<#t>
-            ${transaction.split?then("YES","NO")},<#t>
-            ${quoteCsv(unescapeHtml(transaction.category))},<#t>
-            ${quoteCsv(unescapeHtml(transaction.tag))},<#t>
-            ${card.owner},<#t>
-            ${quoteCsv(unescapeHtml(card.name))},<#t>
-            ${status},<#t>
-            ${quoteCsv(unescapeHtml(report.name))},<#t>
-            ${report.status!""},<#t>
-            ${report.managerEmail},<#t>
-            ${report.url},<#t>
-            ${quoteCsv(unescapeHtml(transaction.comment))},<#t>
-            ${quoteCsv(unescapeHtml(transaction.externalID))},<#t>
-            ${reportID}<#lt>
+            <#-- Original Merchant -->${quoteCsv(unescapeHtml(transaction.originalMerchant))},<#t>
+            <#-- Modified Merchant -->${quoteCsv(unescapeHtml(transaction.modifiedMerchant))},<#t>
+            <#-- Posted date -->${transaction.posted},<#t>
+            <#-- Sales date -->${transaction.originalCreated},<#t>
+            <#-- Modified Sales -->${modifiedCreated},<#t>
+            <#-- Original Amount -->${(-transaction.originalAmount/100)?string("0.##")},<#t>
+            <#-- Modified Amount -->${transaction.amountModified?then((-transaction.modifiedAmount/100)?string("0.##"), "")},<#t>
+            <#-- Currency -->${transaction.currency},<#t>
+            <#-- Split -->${transaction.split?then("YES","NO")},<#t>
+            <#-- Category -->${quoteCsv(unescapeHtml(transaction.category))},<#t>
+            <#-- Tag -->${quoteCsv(unescapeHtml(transaction.tag))},<#t>
+            <#-- Email -->${card.owner},<#t>
+            <#-- Card name -->${quoteCsv(unescapeHtml(card.name))},<#t>
+            <#-- Expense status -->${status},<#t>
+            <#-- Report name -->${quoteCsv(unescapeHtml(report.name))},<#t>
+            <#-- Report status -->${report.status.displayName!""},<#t>
+            <#-- Submitted to -->${report.managerEmail},<#t>
+            <#-- Report URL -->${report.url},<#t>
+            <#-- Comment -->${quoteCsv(unescapeHtml(transaction.comment))},<#t>
+            <#-- External ID -->${quoteCsv(unescapeHtml(transaction.externalID))},<#t>
+            <#-- Report ID -->${reportID}<#lt>
         </#list>
     </#list>
 </#list>
@@ -164,6 +165,7 @@ submitterEmail | The email address of the person that created the report.
 submitterID | The account ID of the creator of the report
 state | The state of the report (Example: `AUTOREIMBURSED`, `BILLING`, `MANUALREIMBURSED`, `OPEN`, `SUBMITTED`)
 status | The status of the report (Example: "Open", "Processing", "Approved", "Reimbursed", or "Archived")
+status.displayName | The user-facing name of the report status ("Draft", "Outstanding", "Approved", "Paid", "Done")
 total | The report's total, in cents
 transactionList | The list of expenses on the report. *See the Expense level reference below for more information on printing information about Expenses.*
 url | The url of the report
