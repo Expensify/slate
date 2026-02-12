@@ -197,7 +197,7 @@ reportIDList | String, <br/>*Required if `startDate` or `approvedAfter` are not 
 policyIDList | String, <br/>*Optional* |  | Comma-separated list of policy IDs the exported reports must be under.
 startDate | Date, <br/>*Required if `reportIDList` or `approvedAfter` are not specified* | yyyy-mm-dd formatted date | Filters out all reports submitted or created before the given date, whichever occurred last (inclusive).
 endDate | Date, <br/> *Conditionally required, if either `startDate` or `approvedAfter` is more than one year ago* | yyyy-mm-dd formatted date | Filters out all reports submitted or created after the given date, whichever occurred last (inclusive).<br/>The total date range cannot exceed one year. |
-approvedAfter | Date, <br/>*Required if `reportIDList` or `startDate` are not specified* | yyyy-mm-dd formatted date | Filters out all reports approved before, or on that date. This filter is only used against reports that have been approved. |
+approvedAfter | Date, <br/>*Required if `reportIDList` or `startDate` are not specified* | yyyy-mm-dd formatted date | Filters out all reports approved before that date (the date itself is inclusive). This filter is only used against reports that have been approved. |
 markedAsExported | String,<br/>*Optional* | Any string | Filters out reports that have already been exported with that label out.
 
 - `outputSettings`
