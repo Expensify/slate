@@ -281,6 +281,7 @@ onFinish | JSON array | See onFinish | You can configure the `recipients` list o
 setEmployeePrimaryPolicy | String | `none` (default), `new_employees`, `all_employees` | `none`: we will never update an employee's primary policy.<br>`new_employees`: we will set an employee's primary policy to the `policyID` parameter if they were not a member of that policy yet.<br>`all_employees`: we will update the primary policy for every employee.
 shouldFixApprovalChains | Boolean | `true` (default), `false` | Dictates whether Expensify will automatically invite managers (`managerEmail`), managers’ managers, and so on to policies where they approve reports, if it is not their primary policy.
 shouldSkipNotificationEmail | Boolean | `true`, `false` (default) | If set to `true`, employees who get invited to a policy will not receive an email.
+fixFirstLevelManagersOnly | Boolean | `true`, `false` (default) | Only relevant when `shouldFixApprovalChains` is `true`. When set to `true`, Expensify will only invite **direct** (first-level) managers to policies — it will not walk further up the approval chain. Any newly-invited manager whose own manager is not on the policy will have their `submitsTo` set to the policy's default approver instead.
 
 - `inputSettings`
 
