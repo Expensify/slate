@@ -43,7 +43,9 @@ OAuth2 access token | `authToken` | Multi-user integrations acting on behalf of 
 
 To act on behalf of individual Expensify users, use the OAuth2 authorization code flow to obtain a short-lived access token. Pass that token as `credentials.authToken` in your requests.
 
-**Prerequisites:** Register OAuth2 credentials at <https://www.expensify.com/tools/integrations/>. You receive a `client_id` (your `partnerUserID`) and a `client_secret`. Set a `redirect_uri` for your app.
+**Access:** OAuth2 partner authentication is currently in private beta. To request access, contact [concierge@expensify.com](mailto:concierge@expensify.com). The Expensify team will provide you with a `client_id` (your `partnerUserID`) and a `client_secret` (your `partnerUserSecret`), along with a link to register your `redirect_uri`.
+
+**Regenerating your client secret:** If you lose your `client_secret`, go to <https://www.expensify.com/tools/integrations/> and click **"Click here to regenerate your partnerUserSecret."** This immediately invalidates your old secret — update all systems using it before regenerating.
 
 ### Step 1 — Redirect the user to authorize
 
@@ -56,7 +58,7 @@ https://www.expensify.com/oauth/authorize
   &state=RANDOM_STATE_VALUE
 ```
 
-Generate a random `state` value and validate it in the callback to prevent CSRF attacks.
+Before redirecting the user, generate a random `state` value on your server and store it in the session. When the user returns to your callback URL, confirm that the `state` parameter matches what you stored — reject the request if it does not. This server-side check prevents CSRF attacks.
 
 ### Step 2 — Exchange the authorization code for tokens
 
