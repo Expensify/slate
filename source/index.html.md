@@ -45,6 +45,10 @@ To act on behalf of individual Expensify users, use the OAuth2 authorization cod
 
 **Access:** OAuth2 partner authentication is currently in private beta. To request access, contact [concierge@expensify.com](mailto:concierge@expensify.com). The Expensify team will provide you with a `client_id` (your `partnerUserID`) and a `client_secret` (your `partnerUserSecret`), along with a link to register your `redirect_uri`.
 
+<aside class="warning">
+Keep your <code>client_secret</code> on the server only. Never expose it in client-side code, browser requests, or mobile apps. Any code a user can read or intercept must not contain it.
+</aside>
+
 **Regenerating your client secret:** If you lose your `client_secret`, go to <https://www.expensify.com/tools/integrations/> and click **"Click here to regenerate your partnerUserSecret."** This immediately invalidates your old secret — update all systems using it before regenerating.
 
 ### Step 1 — Redirect the user to authorize
@@ -58,7 +62,7 @@ https://www.expensify.com/oauth/authorize
   &state=RANDOM_STATE_VALUE
 ```
 
-Before redirecting the user, generate a random `state` value on your server and store it in the session. When the user returns to your callback URL, confirm that the `state` parameter matches what you stored — reject the request if it does not. This server-side check prevents CSRF attacks.
+Before redirecting the user, generate a new cryptographically random `state` value on your server — for example, a UUID or a hex string from a secure random source — and store it in the user's session. Use a different value for every authorization request; never reuse a previous one. When the user returns to your callback URL, confirm that the `state` parameter matches what you stored, and reject the request if it does not or if it is missing.
 
 ### Step 2 — Exchange the authorization code for tokens
 
