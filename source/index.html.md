@@ -47,7 +47,7 @@ To act on behalf of individual Expensify users, use the OAuth2 authorization cod
 Keep your <code>client_secret</code> on the server only. Never expose it in client-side code, browser requests, or mobile apps. Any code a user can read or intercept must not contain it.
 </aside>
 
-**Client secret:** Your `client_secret` is only shown once when first generated. If you lose it, go to <https://www.expensify.com/tools/integrations/> and click **"Click here to regenerate your partnerUserSecret."** This immediately invalidates your old secret — update all systems using it before regenerating.
+**Client secret:** Your `client_secret` is only shown once when first generated. If you lose it, go to <https://www.expensify.com/tools/integrations/> and click **"Generate new client secret."** This immediately invalidates your old secret — update all systems using it before regenerating.
 
 ### Step 1 — Redirect the user to authorize
 
