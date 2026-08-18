@@ -18,6 +18,15 @@ While the API is a self-serve tool, we have compiled some customer FAQs in [Expe
 
 # Authentication
 
+The `credentials` object in every `requestJobDescription` accepts either method:
+
+Method | Fields | When to use
+------ | ------ | -----------
+Credential based | `partnerUserID` + `partnerUserSecret` | Server-to-server integrations with a single Expensify account
+OAuth2 access token | `authToken` | Multi-user integrations acting on behalf of individual Expensify users
+
+## Credential based authentication
+
 To use the API, you will need to generate API credentials.
 
 1. Create an Expensify account at <https://www.expensify.com/>
@@ -28,28 +37,17 @@ To use the API, you will need to generate API credentials.
 Make sure to store the <code>partnerUserID</code> and <code>partnerUserSecret</code> pair you're given in a secure location, as you won't be shown them again.
 </aside>
 
-If you are building a multi-user integration and need to access Expensify on behalf of multiple customers, see [OAuth2 partner authentication](#oauth2-partner-authentication) below.
-
-## Two authentication methods
-
-The `credentials` object in every `requestJobDescription` accepts either method:
-
-Method | Fields | When to use
------- | ------ | -----------
-Partner credentials | `partnerUserID` + `partnerUserSecret` | Server-to-server integrations with a single Expensify account
-OAuth2 access token | `authToken` | Multi-user integrations acting on behalf of individual Expensify users
-
 ## OAuth2 partner authentication
 
 To act on behalf of individual Expensify users, use the OAuth2 authorization code flow to obtain a short-lived access token. Pass that token as `credentials.authToken` in your requests.
 
-**Access:** OAuth2 partner authentication is currently in private beta. To request access, contact [concierge@expensify.com](mailto:concierge@expensify.com). The Expensify team will provide you with a `client_id` (your `partnerUserID`) and a `client_secret` (your `partnerUserSecret`), along with a link to register your `redirect_uri`.
+**Access:** OAuth2 partner authentication is currently in private beta. To request access, contact [concierge@expensify.com](mailto:concierge@expensify.com).
 
 <aside class="warning">
 Keep your <code>client_secret</code> on the server only. Never expose it in client-side code, browser requests, or mobile apps. Any code a user can read or intercept must not contain it.
 </aside>
 
-**Regenerating your client secret:** If you lose your `client_secret`, go to <https://www.expensify.com/tools/integrations/> and click **"Click here to regenerate your partnerUserSecret."** This immediately invalidates your old secret — update all systems using it before regenerating.
+**Client secret:** Your `client_secret` is only shown once when first generated. If you lose it, go to <https://www.expensify.com/tools/integrations/> and click **"Click here to regenerate your partnerUserSecret."** This immediately invalidates your old secret — update all systems using it before regenerating.
 
 ### Step 1 — Redirect the user to authorize
 
