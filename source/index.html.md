@@ -41,13 +41,13 @@ Make sure to store the <code>partnerUserID</code> and <code>partnerUserSecret</c
 
 To act on behalf of individual Expensify users, use the OAuth2 authorization code flow to obtain a short-lived access token. Pass that token as `credentials.authToken` in your requests.
 
-**Access:** OAuth2 partner authentication is currently in private beta. To request access, contact [concierge@expensify.com](mailto:concierge@expensify.com).
+**Access:** OAuth2 partner authentication is currently in private beta. To request access, contact [partners@expensify.com](mailto:partners@expensify.com).
 
 <aside class="warning">
 Keep your <code>client_secret</code> on the server only. Never expose it in client-side code, browser requests, or mobile apps. Any code a user can read or intercept must not contain it.
 </aside>
 
-**Client secret:** Your `client_secret` is only shown once when first generated. If you lose it, go to <https://www.expensify.com/tools/integrations/> and click **"Generate new client secret."** This immediately invalidates your old secret — update all systems using it before regenerating.
+**Client secret:** Your `client_secret` is only shown once when first generated. If you lose it, go to <https://www.expensify.com/tools/integrations/partners> and click **"Generate new client secret."** This immediately invalidates your old secret — update all systems using it before regenerating.
 
 ### Step 1 — Redirect the user to authorize
 
