@@ -18,6 +18,15 @@ While the API is a self-serve tool, we have compiled some customer FAQs in [Expe
 
 # Authentication
 
+The `credentials` object in every `requestJobDescription` accepts either method:
+
+Method | Fields | When to use
+------ | ------ | -----------
+Credential based | `partnerUserID` + `partnerUserSecret` | Server-to-server integrations with a single Expensify account
+OAuth2 access token | `authToken` | Multi-user integrations acting on behalf of individual Expensify users
+
+## Credential based authentication
+
 To use the API, you will need to generate API credentials.
 
 1. Create an Expensify account at <https://www.expensify.com/>
@@ -27,6 +36,89 @@ To use the API, you will need to generate API credentials.
 <aside class="notice">
 Make sure to store the <code>partnerUserID</code> and <code>partnerUserSecret</code> pair you're given in a secure location, as you won't be shown them again.
 </aside>
+
+## OAuth2 partner authentication
+
+To act on behalf of individual Expensify users, use the OAuth2 authorization code flow to obtain a short-lived access token. Pass that token as `credentials.authToken` in your requests.
+
+**Access:** OAuth2 partner authentication is currently in private beta. To request access, contact [partners@expensify.com](mailto:partners@expensify.com).
+
+<aside class="warning">
+Keep your <code>client_secret</code> on the server only. Never expose it in client-side code, browser requests, or mobile apps. Any code a user can read or intercept must not contain it.
+</aside>
+
+**Client secret:** Your `client_secret` is only shown once when first generated. If you lose it, go to <https://www.expensify.com/tools/integrations/partners> and click **"Generate new client secret."** This immediately invalidates your old secret — update all systems using it before regenerating.
+
+### Step 1 — Redirect the user to authorize
+
+```
+https://www.expensify.com/oauth/authorize
+  ?response_type=code
+  &scope=integrations:api
+  &client_id=YOUR_CLIENT_ID
+  &redirect_uri=YOUR_REDIRECT_URI
+  &state=RANDOM_STATE_VALUE
+```
+
+Before redirecting the user, generate a new cryptographically random `state` value on your server — for example, a UUID or a hex string from a secure random source — and store it in the user's session. Use a different value for every authorization request; never reuse a previous one. When the user returns to your callback URL, confirm that the `state` parameter matches what you stored, and reject the request if it does not or if it is missing.
+
+### Step 2 — Exchange the authorization code for tokens
+
+After the user authorizes, Expensify redirects to `YOUR_REDIRECT_URI?code=AUTH_CODE&state=...`. Exchange the code for tokens:
+
+```shell
+curl -X POST 'https://www.expensify.com/oauth/token' \
+    -d 'grant_type=authorization_code' \
+    -d 'code=AUTH_CODE' \
+    -d 'redirect_uri=YOUR_REDIRECT_URI' \
+    -d 'client_id=YOUR_CLIENT_ID' \
+    -d 'client_secret=YOUR_CLIENT_SECRET'
+```
+
+Response:
+
+```json
+{
+  "access_token": "ABCDEF123...",
+  "refresh_token": "GHIJKL456...",
+  "expires_in": 7200
+}
+```
+
+- `access_token` expires in approximately 2 hours. Store it in memory only.
+- `refresh_token` does not expire. Store it persistently (for example, in a database).
+- Authorization codes expire in 2 minutes and can only be used once.
+
+### Step 3 — Use the access token in IS requests
+
+Pass `access_token` as `credentials.authToken` in any `requestJobDescription`:
+
+```shell
+curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
+    -d 'requestJobDescription={
+        "type":"get",
+        "credentials":{
+            "authToken":"ABCDEF123..."
+        },
+        "inputSettings":{
+            "type":"policyList"
+        }
+    }'
+```
+
+### Step 4 — Refresh the access token
+
+When the `access_token` expires, exchange the `refresh_token` for a new pair:
+
+```shell
+curl -X POST 'https://www.expensify.com/oauth/token' \
+    -d 'grant_type=refresh_token' \
+    -d 'refresh_token=GHIJKL456...' \
+    -d 'client_id=YOUR_CLIENT_ID' \
+    -d 'client_secret=YOUR_CLIENT_SECRET'
+```
+
+Always store the new `refresh_token` returned in the response — each refresh issues a new one and invalidates the old one.
 
 # Request format
 
@@ -62,7 +154,7 @@ For every request, the `requestJobDescription` JSON parameter will need to conta
 Parameter | Type | Description
 --------- | ------- | -----------
 type | String | The type of job to execute
-credentials | JSON object | An object containing two key/values used to authenticate you: `partnerUserID` and `partnerUserSecret`.
+credentials | JSON object | An object with either `partnerUserID` + `partnerUserSecret` (partner credentials) or a single `authToken` (OAuth2 access token). See [Authentication](#authentication).
 `inputSettings` | JSON Object | Additional information about the job to execute
 
 # Rate limits
