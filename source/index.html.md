@@ -823,6 +823,118 @@ employeeEmail | String | | The email address of the policy member that should re
 policyID | String | A valid Expensify policy ID. | |
 actions | JSON Object | | Supported keys:<br/> `tag`, `defaultBillable` |
 
+## Expensify Card creator
+
+```shell
+curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations' \
+    -d 'requestJobDescription={
+        "type": "create",
+        "credentials": {
+            "partnerUserID": "_REPLACE_",
+            "partnerUserSecret": "_REPLACE_"
+        },
+        "inputSettings": {
+            "type": "expensifyCard",
+            "domain": "domain.tld",
+            "externalID": "12345-laptop",
+            "assigneeEmail": "new.hire@domain.tld",
+            "cardTitle": "Laptop for New Hire",
+            "cardLimit": 350000,
+            "limitType": "singleUse",
+            "feedCountry": "US",
+            "validThru": "2026-12-31",
+            "personalDetails": {
+                "legalFirstName": "Nora",
+                "legalLastName": "Hire",
+                "dob": "1990-05-17",
+                "phoneNumber": "+15005550006",
+                "addressStreet": "1 Main Street",
+                "addressCity": "Portland",
+                "addressState": "OR",
+                "addressZip": "97210",
+                "addressCountry": "US"
+            }
+        }
+    }'
+```
+
+> Response
+
+> -  A success response message is comprised of a `responseCode` `200`, the `cardID` of the virtual card, its `state` and the `externalID` you sent. A `state` of `3` means the card is active. Sending the request again with the same `externalID` returns the same card instead of issuing a new one.
+
+```
+{
+    "responseCode": 200,
+    "cardID": 1234567890123456,
+    "state": 3,
+    "externalID": "12345-laptop"
+}
+```
+
+> - Error
+
+```
+{
+    "responseMessage": "No account exists for assigneeEmail. Create the employee first.",
+    "responseCode": 404
+}
+```
+
+Lets you issue a virtual Expensify Card to an employee, for example when you onboard a new hire.
+
+- The credentials must belong to a Domain Admin or card admin who can issue Expensify Cards on the domain. To issue a card on a workspace, they must belong to a workspace admin who can issue Expensify Cards on that workspace.
+- The employee must already have an Expensify account. Create it first with the [Advanced Employee Updater](#advanced-employee-updater). When you issue on a domain, the employee's email must be on that domain. When you issue on a workspace, the employee must already be a member of it.
+- The card number is never returned. The employee finds the card in Expensify and reveals its details with a magic code sent to their email.
+- Always send the same `externalID` for the same card. If a request times out or fails with a `5xx` error, send it again with the same `externalID`: if the card was already issued, you get it back instead of a second card.
+
+- `inputSettings`
+
+Name | Format | Valid values | Description
+-------- | --------- | ---------------- | ---------
+type | String | "expensifyCard" | Specifies to the job that it has to issue an Expensify Card.
+assigneeEmail | String | | The email address of the employee who receives the card.
+externalID | String | Up to 100 characters | Your identifier for this card, for example your employee ID followed by `-laptop`. It must be unique within the domain or workspace. A request with an `externalID` that already has a card returns that card if it belongs to the same employee, and an error otherwise.
+cardTitle | String | | The name of the card, shown in Expensify.
+cardLimit | Integer | A whole number greater than 0 | The card limit, in cents of the card's currency. For example, `350000` is 3,500.00.
+limitType | String | "fixed", "monthly", "smart", "singleUse" | The type of limit, the same as when issuing a card in Expensify.
+domain | String | | The domain to issue the card on. Send exactly one of `domain` or `policyID`.
+policyID | String | A valid Expensify policy ID. | The workspace to issue the card on. Send exactly one of `domain` or `policyID`.
+personalDetails | JSON Object | | The employee's legal details, used to set up the card. See the table below.
+**Optional elements** |
+feedCountry | String | "US", "UK_EU" | The Expensify Card program to issue the card on. "GB" and "EU" are accepted for "UK_EU". Required when the domain or workspace has both programs.
+validFrom | String | Format: `yyyy-mm-dd` | The first day the card can be used. Defaults to the moment the card is issued. Requires `validThru`.
+validThru | String | Format: `yyyy-mm-dd` | The last day the card can be used. The card stops working at the end of that day, UTC.
+
+- `personalDetails`
+
+Name | Format | Valid values | Description
+-------- | --------- | ---------------- | ---------
+legalFirstName | String | | The employee's legal first name.
+legalLastName | String | | The employee's legal last name.
+dob | String | Format: `yyyy-mm-dd` | The employee's date of birth. The employee must be at least 18.
+phoneNumber | String | International format, for example `+15005550006` | The employee's phone number.
+addressStreet | String | Up to 100 characters | The street of the employee's home address.
+addressCity | String | | The city of the employee's home address.
+addressZip | String | Up to 10 characters | The postal code of the employee's home address.
+addressCountry | String | Two-letter country code, for example `US` or `GB` | The country of the employee's home address.
+**Optional elements** |
+legalMiddleName | String | | The employee's legal middle name.
+addressState | String | Two-letter state code for US addresses | The state or province of the employee's home address. Required for US addresses.
+
+When you issue on a domain and the employee's email is on that domain, these details replace the ones Expensify has on file. For any other employee, they only fill in details that are missing: if different details are already on file, the request fails and no card is issued.
+
+- Errors
+
+Code | Description
+-------- | ---------
+403 | The credentials cannot issue Expensify Cards on this domain or workspace, the employee's email is not on the domain, or the employee is not a member of the workspace.
+404 | No Expensify account exists for `assigneeEmail`, or the domain or workspace has no Expensify Card program.
+405 | Expensify Cards are suspended for the domain or workspace.
+406 | The bank account that settles the Expensify Cards is not in a valid state.
+409 | The `externalID` already belongs to a card for another employee, or the employee's details on file don't match `personalDetails`.
+410 | A field is missing or malformed, for example a required personal detail, or `feedCountry` when the domain or workspace has both programs.
+429 | Too many requests. See [Rate limits](#rate-limits).
+
 # Read/Get
 
 ## Policy getter
