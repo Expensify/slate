@@ -1118,7 +1118,7 @@ curl -X POST 'https://integrations.expensify.com/Integration-Server/ExpensifyInt
 
 ```
 {
-    "responseMessage":"Domain name is missing or malformed",
+    "responseMessage":"Argument 'inputSettings.domain' is missing or malformed. Set it to the domain whose cards you want, for example \"domain\": \"example.com\".",
     "responseCode":410
 }
 ```
