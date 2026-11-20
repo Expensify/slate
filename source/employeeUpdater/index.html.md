@@ -101,7 +101,7 @@ workerStatus | String | If "On Leave", they won't be added as any employee's man
 isTerminated | Boolean | If set to true, the employee will be removed from the `policyID`
 domainGroupID | String | The ID of the domain group this domain member should be added to<br/><i>See note below</i>.
 approvesTo | String | If a valid email address is passed, determines who the employee should forward the report to
-role | String | One of `user`, `auditor`, `admin`. If passed, specifies the role of the account in the policy in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.
+role | String | One of `user`, `auditor`, `admin`, `cardAdmin`, `paymentsAdmin`, `peopleAdmin`, `approveOnly`, `guest`. If passed, specifies the role of the account in the `policyID` and `additionalPolicyIDs` policies in Expensify. Policy owners and the account running the request cannot have their role demoted from `admin`.<br/><i>See [Employee roles](#employee-roles) below</i>.
 additionalPolicyIDs | JSON array | List of additional policies the employee should be added to
 shouldRemoveFromUnassignedPolicies | Boolean | Whether to remove an employee from policies they're not direcly assigned to via `policyID`, `additionalPolicyIDs`, or as another employee's `managerEmail`. Defaults to `false`.
 defaultTags | JSON Array | Default tag values when the employee creates an expense on that policy.
@@ -111,6 +111,31 @@ defaultTags | JSON Array | Default tag values when the employee creates an expen
 </aside>
 <aside class="notice">
     <strong>Important note on <code>domainGroupID</code></strong>: Domain group assignment is only performed if <strong>all</strong> employee objects have a non-null <code>domainGroupID</code> specified. If any employee is not passed a <code>domainGroupID</code>, then domain groups are not assigned for any employee.
+</aside>
+
+### Employee roles
+
+Value | Role in Expensify | Description
+----- | ----------------- | -----------
+`user` | Member | Submit and approve reports
+`auditor` | Auditor | View and comment on reports
+`admin` | Workspace Admin | Manage reports and policy settings
+`cardAdmin` | Card Admin | Manage the policy's cards
+`paymentsAdmin` | Payments Admin | Manage the policy's payments
+`peopleAdmin` | People Admin | Manage members and approval workflows
+`approveOnly` | Approve-only | Approve reports, without creating expenses
+`guest` | Guest | Submit reports with limited visibility of the policy
+
+<aside class="notice">
+    <strong>Important note on Control-only roles</strong>: Collect policies only support the <code>user</code> and <code>admin</code> roles. All other roles need a Control policy. If you pass another role for an employee of a Collect policy, the update fails for that policy.
+</aside>
+<aside class="notice">
+    <strong>Important note on <code>approveOnly</code></strong>: Approve-only members can't create expenses on the policy. For this reason, Expensify does not give the <code>approveOnly</code> role to an employee if:
+    <ul>
+        <li>They have an Expensify Card or a company card assigned on the policy</li>
+        <li>The policy is their primary policy</li>
+        <li>Their domain group restricts them to the policy</li>
+    </ul>
 </aside>
 
 # Request format
